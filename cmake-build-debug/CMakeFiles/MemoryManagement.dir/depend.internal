@@ -9,23 +9,45 @@ CMakeFiles/MemoryManagement.dir/call.c.obj
  D:/CPP/MemoryManagement/bottom.h
  D:/CPP/MemoryManagement/call.c
  D:/CPP/MemoryManagement/call.h
+ D:/CPP/MemoryManagement/page_bit_map.h
+ D:/CPP/MemoryManagement/page_table.h
+ D:/CPP/MemoryManagement/process.h
  D:/CPP/MemoryManagement/struct.h
  D:/CPP/MemoryManagement/type.h
 CMakeFiles/MemoryManagement.dir/main.c.obj
  D:/CPP/MemoryManagement/bottom.h
  D:/CPP/MemoryManagement/call.h
  D:/CPP/MemoryManagement/main.c
- D:/CPP/MemoryManagement/page_frame.h
+ D:/CPP/MemoryManagement/page_bit_map.h
  D:/CPP/MemoryManagement/page_table.h
  D:/CPP/MemoryManagement/process.h
  D:/CPP/MemoryManagement/struct.h
  D:/CPP/MemoryManagement/type.h
-CMakeFiles/MemoryManagement.dir/page_frame.c.obj
- D:/CPP/MemoryManagement/page_frame.c
+CMakeFiles/MemoryManagement.dir/page_bit_map.c.obj
+ D:/CPP/MemoryManagement/bottom.h
+ D:/CPP/MemoryManagement/call.h
+ D:/CPP/MemoryManagement/page_bit_map.c
+ D:/CPP/MemoryManagement/page_bit_map.h
+ D:/CPP/MemoryManagement/page_table.h
+ D:/CPP/MemoryManagement/process.h
+ D:/CPP/MemoryManagement/struct.h
+ D:/CPP/MemoryManagement/type.h
 CMakeFiles/MemoryManagement.dir/page_table.c.obj
+ D:/CPP/MemoryManagement/bottom.h
+ D:/CPP/MemoryManagement/call.h
+ D:/CPP/MemoryManagement/page_bit_map.h
  D:/CPP/MemoryManagement/page_table.c
+ D:/CPP/MemoryManagement/page_table.h
+ D:/CPP/MemoryManagement/process.h
+ D:/CPP/MemoryManagement/struct.h
+ D:/CPP/MemoryManagement/type.h
 CMakeFiles/MemoryManagement.dir/process.c.obj
+ D:/CPP/MemoryManagement/bottom.h
+ D:/CPP/MemoryManagement/call.h
  D:/CPP/MemoryManagement/process.c
+ D:/CPP/MemoryManagement/process.h
+ D:/CPP/MemoryManagement/struct.h
+ D:/CPP/MemoryManagement/type.h
 CMakeFiles/MemoryManagement.dir/test.c.obj
  D:/CPP/MemoryManagement/bottom.h
  D:/CPP/MemoryManagement/call.h

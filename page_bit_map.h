@@ -5,8 +5,26 @@
 #ifndef MEMORYMANAGEMENT_PAGE_BIT_MAP_H
 #define MEMORYMANAGEMENT_PAGE_BIT_MAP_H
 #include "struct.h"
-struct pageBitMap * loadPageBitMap();
+#include "stdbool.h"
+/**
+ * 读取PageBitMap，只可以读，不可以写
+ * @return  pageBitMap
+ */
+struct PageBitMap  loadPageBitMap();
+
+
+/**
+ * 将修改后的pageBitMap写回到内存
+ * @param bitMap 
+ */
+void flushPageBitMap(struct PageBitMap bitMap);
+
+
+/**
+ * 初始化位示图
+ */
 void initPageBitMap();
 
+bool isAllocatable(m_size_t size);
 
 #endif //MEMORYMANAGEMENT_PAGE_BIT_MAP_H

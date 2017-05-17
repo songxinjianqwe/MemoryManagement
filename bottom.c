@@ -34,6 +34,7 @@ data_unit mem_read(p_address address)
 
 void mem_write(data_unit data, p_address address)
 {
+//    printf("DEBUG:%c\n",data);
     mem_write_time += 1;
 
     if (address >= MEMORY_SIZE)

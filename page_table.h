@@ -7,7 +7,8 @@
 #include "type.h"
 #include "struct.h"
 
-struct page **loadPageTable();
+struct PageTable loadPageTable();
+void flushPageTable(struct PageTable table);
 void initPageTable();
 
 

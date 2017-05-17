@@ -176,6 +176,114 @@ call.c.s:
 	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/call.c.s
 .PHONY : call.c.s
 
+initialize.obj: initialize.c.obj
+
+.PHONY : initialize.obj
+
+# target to build an object file
+initialize.c.obj:
+	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/initialize.c.obj
+.PHONY : initialize.c.obj
+
+initialize.i: initialize.c.i
+
+.PHONY : initialize.i
+
+# target to preprocess a source file
+initialize.c.i:
+	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/initialize.c.i
+.PHONY : initialize.c.i
+
+initialize.s: initialize.c.s
+
+.PHONY : initialize.s
+
+# target to generate assembly for a file
+initialize.c.s:
+	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/initialize.c.s
+.PHONY : initialize.c.s
+
+page_frame.obj: page_frame.c.obj
+
+.PHONY : page_frame.obj
+
+# target to build an object file
+page_frame.c.obj:
+	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/page_frame.c.obj
+.PHONY : page_frame.c.obj
+
+page_frame.i: page_frame.c.i
+
+.PHONY : page_frame.i
+
+# target to preprocess a source file
+page_frame.c.i:
+	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/page_frame.c.i
+.PHONY : page_frame.c.i
+
+page_frame.s: page_frame.c.s
+
+.PHONY : page_frame.s
+
+# target to generate assembly for a file
+page_frame.c.s:
+	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/page_frame.c.s
+.PHONY : page_frame.c.s
+
+page_table.obj: page_table.c.obj
+
+.PHONY : page_table.obj
+
+# target to build an object file
+page_table.c.obj:
+	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/page_table.c.obj
+.PHONY : page_table.c.obj
+
+page_table.i: page_table.c.i
+
+.PHONY : page_table.i
+
+# target to preprocess a source file
+page_table.c.i:
+	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/page_table.c.i
+.PHONY : page_table.c.i
+
+page_table.s: page_table.c.s
+
+.PHONY : page_table.s
+
+# target to generate assembly for a file
+page_table.c.s:
+	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/page_table.c.s
+.PHONY : page_table.c.s
+
+process.obj: process.c.obj
+
+.PHONY : process.obj
+
+# target to build an object file
+process.c.obj:
+	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/process.c.obj
+.PHONY : process.c.obj
+
+process.i: process.c.i
+
+.PHONY : process.i
+
+# target to preprocess a source file
+process.c.i:
+	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/process.c.i
+.PHONY : process.c.i
+
+process.s: process.c.s
+
+.PHONY : process.s
+
+# target to generate assembly for a file
+process.c.s:
+	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/process.c.s
+.PHONY : process.c.s
+
 test.obj: test.c.obj
 
 .PHONY : test.obj
@@ -218,6 +326,18 @@ help:
 	@echo ... call.obj
 	@echo ... call.i
 	@echo ... call.s
+	@echo ... initialize.obj
+	@echo ... initialize.i
+	@echo ... initialize.s
+	@echo ... page_frame.obj
+	@echo ... page_frame.i
+	@echo ... page_frame.s
+	@echo ... page_table.obj
+	@echo ... page_table.i
+	@echo ... page_table.s
+	@echo ... process.obj
+	@echo ... process.i
+	@echo ... process.s
 	@echo ... test.obj
 	@echo ... test.i
 	@echo ... test.s

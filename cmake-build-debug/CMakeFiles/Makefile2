@@ -65,7 +65,7 @@ CMAKE_BINARY_DIR = D:\CPP\MemoryManagement\cmake-build-debug
 CMakeFiles/MemoryManagement.dir/all:
 	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/depend
 	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\CPP\MemoryManagement\cmake-build-debug\CMakeFiles --progress-num=1,2,3,4 "Built target MemoryManagement"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\CPP\MemoryManagement\cmake-build-debug\CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target MemoryManagement"
 .PHONY : CMakeFiles/MemoryManagement.dir/all
 
 # Include target in all.
@@ -75,7 +75,7 @@ all: CMakeFiles/MemoryManagement.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/MemoryManagement.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\CPP\MemoryManagement\cmake-build-debug\CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\CPP\MemoryManagement\cmake-build-debug\CMakeFiles 8
 	$(MAKE) -f CMakeFiles\Makefile2 CMakeFiles/MemoryManagement.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start D:\CPP\MemoryManagement\cmake-build-debug\CMakeFiles 0
 .PHONY : CMakeFiles/MemoryManagement.dir/rule

@@ -96,6 +96,30 @@
 		<Unit filename="D:/CPP/MemoryManagement/call.h">
 			<Option target="MemoryManagement"/>
 		</Unit>
+		<Unit filename="D:/CPP/MemoryManagement/initialize.c">
+			<Option target="MemoryManagement"/>
+		</Unit>
+		<Unit filename="D:/CPP/MemoryManagement/initialize.h">
+			<Option target="MemoryManagement"/>
+		</Unit>
+		<Unit filename="D:/CPP/MemoryManagement/page_frame.c">
+			<Option target="MemoryManagement"/>
+		</Unit>
+		<Unit filename="D:/CPP/MemoryManagement/page_frame.h">
+			<Option target="MemoryManagement"/>
+		</Unit>
+		<Unit filename="D:/CPP/MemoryManagement/page_table.c">
+			<Option target="MemoryManagement"/>
+		</Unit>
+		<Unit filename="D:/CPP/MemoryManagement/page_table.h">
+			<Option target="MemoryManagement"/>
+		</Unit>
+		<Unit filename="D:/CPP/MemoryManagement/process.c">
+			<Option target="MemoryManagement"/>
+		</Unit>
+		<Unit filename="D:/CPP/MemoryManagement/process.h">
+			<Option target="MemoryManagement"/>
+		</Unit>
 		<Unit filename="D:/CPP/MemoryManagement/struct.h">
 			<Option target="MemoryManagement"/>
 		</Unit>

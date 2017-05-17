@@ -30,10 +30,10 @@ set(CMAKE_MAKEFILE_DEPENDS
   "C:/Program Files/JetBrains/CLion 2017.1.1/bin/cmake/share/cmake-3.7/Modules/Platform/WindowsPaths.cmake"
   "C:/Program Files/JetBrains/CLion 2017.1.1/bin/cmake/share/cmake-3.7/Modules/ProcessorCount.cmake"
   "../CMakeLists.txt"
-  "CMakeFiles/3.7.1/CMakeCCompiler.cmake"
-  "CMakeFiles/3.7.1/CMakeCXXCompiler.cmake"
-  "CMakeFiles/3.7.1/CMakeRCCompiler.cmake"
-  "CMakeFiles/3.7.1/CMakeSystem.cmake"
+  "CMakeFiles/3.7.2/CMakeCCompiler.cmake"
+  "CMakeFiles/3.7.2/CMakeCXXCompiler.cmake"
+  "CMakeFiles/3.7.2/CMakeRCCompiler.cmake"
+  "CMakeFiles/3.7.2/CMakeSystem.cmake"
   )
 
 # The corresponding makefile is:

@@ -128,33 +128,9 @@ CMakeFiles/MemoryManagement.dir/call.c.obj.provides: CMakeFiles/MemoryManagement
 CMakeFiles/MemoryManagement.dir/call.c.obj.provides.build: CMakeFiles/MemoryManagement.dir/call.c.obj
 
 
-CMakeFiles/MemoryManagement.dir/initialize.c.obj: CMakeFiles/MemoryManagement.dir/flags.make
-CMakeFiles/MemoryManagement.dir/initialize.c.obj: ../initialize.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\CPP\MemoryManagement\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/MemoryManagement.dir/initialize.c.obj"
-	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\MemoryManagement.dir\initialize.c.obj   -c D:\CPP\MemoryManagement\initialize.c
-
-CMakeFiles/MemoryManagement.dir/initialize.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/MemoryManagement.dir/initialize.c.i"
-	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\CPP\MemoryManagement\initialize.c > CMakeFiles\MemoryManagement.dir\initialize.c.i
-
-CMakeFiles/MemoryManagement.dir/initialize.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/MemoryManagement.dir/initialize.c.s"
-	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\CPP\MemoryManagement\initialize.c -o CMakeFiles\MemoryManagement.dir\initialize.c.s
-
-CMakeFiles/MemoryManagement.dir/initialize.c.obj.requires:
-
-.PHONY : CMakeFiles/MemoryManagement.dir/initialize.c.obj.requires
-
-CMakeFiles/MemoryManagement.dir/initialize.c.obj.provides: CMakeFiles/MemoryManagement.dir/initialize.c.obj.requires
-	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/initialize.c.obj.provides.build
-.PHONY : CMakeFiles/MemoryManagement.dir/initialize.c.obj.provides
-
-CMakeFiles/MemoryManagement.dir/initialize.c.obj.provides.build: CMakeFiles/MemoryManagement.dir/initialize.c.obj
-
-
 CMakeFiles/MemoryManagement.dir/process.c.obj: CMakeFiles/MemoryManagement.dir/flags.make
 CMakeFiles/MemoryManagement.dir/process.c.obj: ../process.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\CPP\MemoryManagement\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/MemoryManagement.dir/process.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\CPP\MemoryManagement\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/MemoryManagement.dir/process.c.obj"
 	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\MemoryManagement.dir\process.c.obj   -c D:\CPP\MemoryManagement\process.c
 
 CMakeFiles/MemoryManagement.dir/process.c.i: cmake_force
@@ -176,33 +152,9 @@ CMakeFiles/MemoryManagement.dir/process.c.obj.provides: CMakeFiles/MemoryManagem
 CMakeFiles/MemoryManagement.dir/process.c.obj.provides.build: CMakeFiles/MemoryManagement.dir/process.c.obj
 
 
-CMakeFiles/MemoryManagement.dir/page_frame.c.obj: CMakeFiles/MemoryManagement.dir/flags.make
-CMakeFiles/MemoryManagement.dir/page_frame.c.obj: ../page_frame.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\CPP\MemoryManagement\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/MemoryManagement.dir/page_frame.c.obj"
-	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\MemoryManagement.dir\page_frame.c.obj   -c D:\CPP\MemoryManagement\page_frame.c
-
-CMakeFiles/MemoryManagement.dir/page_frame.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/MemoryManagement.dir/page_frame.c.i"
-	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\CPP\MemoryManagement\page_frame.c > CMakeFiles\MemoryManagement.dir\page_frame.c.i
-
-CMakeFiles/MemoryManagement.dir/page_frame.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/MemoryManagement.dir/page_frame.c.s"
-	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\CPP\MemoryManagement\page_frame.c -o CMakeFiles\MemoryManagement.dir\page_frame.c.s
-
-CMakeFiles/MemoryManagement.dir/page_frame.c.obj.requires:
-
-.PHONY : CMakeFiles/MemoryManagement.dir/page_frame.c.obj.requires
-
-CMakeFiles/MemoryManagement.dir/page_frame.c.obj.provides: CMakeFiles/MemoryManagement.dir/page_frame.c.obj.requires
-	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/page_frame.c.obj.provides.build
-.PHONY : CMakeFiles/MemoryManagement.dir/page_frame.c.obj.provides
-
-CMakeFiles/MemoryManagement.dir/page_frame.c.obj.provides.build: CMakeFiles/MemoryManagement.dir/page_frame.c.obj
-
-
 CMakeFiles/MemoryManagement.dir/page_table.c.obj: CMakeFiles/MemoryManagement.dir/flags.make
 CMakeFiles/MemoryManagement.dir/page_table.c.obj: ../page_table.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\CPP\MemoryManagement\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/MemoryManagement.dir/page_table.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\CPP\MemoryManagement\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/MemoryManagement.dir/page_table.c.obj"
 	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\MemoryManagement.dir\page_table.c.obj   -c D:\CPP\MemoryManagement\page_table.c
 
 CMakeFiles/MemoryManagement.dir/page_table.c.i: cmake_force
@@ -224,15 +176,63 @@ CMakeFiles/MemoryManagement.dir/page_table.c.obj.provides: CMakeFiles/MemoryMana
 CMakeFiles/MemoryManagement.dir/page_table.c.obj.provides.build: CMakeFiles/MemoryManagement.dir/page_table.c.obj
 
 
+CMakeFiles/MemoryManagement.dir/main.c.obj: CMakeFiles/MemoryManagement.dir/flags.make
+CMakeFiles/MemoryManagement.dir/main.c.obj: ../main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\CPP\MemoryManagement\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/MemoryManagement.dir/main.c.obj"
+	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\MemoryManagement.dir\main.c.obj   -c D:\CPP\MemoryManagement\main.c
+
+CMakeFiles/MemoryManagement.dir/main.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/MemoryManagement.dir/main.c.i"
+	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\CPP\MemoryManagement\main.c > CMakeFiles\MemoryManagement.dir\main.c.i
+
+CMakeFiles/MemoryManagement.dir/main.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/MemoryManagement.dir/main.c.s"
+	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\CPP\MemoryManagement\main.c -o CMakeFiles\MemoryManagement.dir\main.c.s
+
+CMakeFiles/MemoryManagement.dir/main.c.obj.requires:
+
+.PHONY : CMakeFiles/MemoryManagement.dir/main.c.obj.requires
+
+CMakeFiles/MemoryManagement.dir/main.c.obj.provides: CMakeFiles/MemoryManagement.dir/main.c.obj.requires
+	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/main.c.obj.provides.build
+.PHONY : CMakeFiles/MemoryManagement.dir/main.c.obj.provides
+
+CMakeFiles/MemoryManagement.dir/main.c.obj.provides.build: CMakeFiles/MemoryManagement.dir/main.c.obj
+
+
+CMakeFiles/MemoryManagement.dir/page_bit_map.c.obj: CMakeFiles/MemoryManagement.dir/flags.make
+CMakeFiles/MemoryManagement.dir/page_bit_map.c.obj: ../page_bit_map.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\CPP\MemoryManagement\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/MemoryManagement.dir/page_bit_map.c.obj"
+	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\MemoryManagement.dir\page_bit_map.c.obj   -c D:\CPP\MemoryManagement\page_bit_map.c
+
+CMakeFiles/MemoryManagement.dir/page_bit_map.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/MemoryManagement.dir/page_bit_map.c.i"
+	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\CPP\MemoryManagement\page_bit_map.c > CMakeFiles\MemoryManagement.dir\page_bit_map.c.i
+
+CMakeFiles/MemoryManagement.dir/page_bit_map.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/MemoryManagement.dir/page_bit_map.c.s"
+	C:\MinGW\bin\gcc.exe  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\CPP\MemoryManagement\page_bit_map.c -o CMakeFiles\MemoryManagement.dir\page_bit_map.c.s
+
+CMakeFiles/MemoryManagement.dir/page_bit_map.c.obj.requires:
+
+.PHONY : CMakeFiles/MemoryManagement.dir/page_bit_map.c.obj.requires
+
+CMakeFiles/MemoryManagement.dir/page_bit_map.c.obj.provides: CMakeFiles/MemoryManagement.dir/page_bit_map.c.obj.requires
+	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/page_bit_map.c.obj.provides.build
+.PHONY : CMakeFiles/MemoryManagement.dir/page_bit_map.c.obj.provides
+
+CMakeFiles/MemoryManagement.dir/page_bit_map.c.obj.provides.build: CMakeFiles/MemoryManagement.dir/page_bit_map.c.obj
+
+
 # Object files for target MemoryManagement
 MemoryManagement_OBJECTS = \
 "CMakeFiles/MemoryManagement.dir/bottom.c.obj" \
 "CMakeFiles/MemoryManagement.dir/test.c.obj" \
 "CMakeFiles/MemoryManagement.dir/call.c.obj" \
-"CMakeFiles/MemoryManagement.dir/initialize.c.obj" \
 "CMakeFiles/MemoryManagement.dir/process.c.obj" \
-"CMakeFiles/MemoryManagement.dir/page_frame.c.obj" \
-"CMakeFiles/MemoryManagement.dir/page_table.c.obj"
+"CMakeFiles/MemoryManagement.dir/page_table.c.obj" \
+"CMakeFiles/MemoryManagement.dir/main.c.obj" \
+"CMakeFiles/MemoryManagement.dir/page_bit_map.c.obj"
 
 # External object files for target MemoryManagement
 MemoryManagement_EXTERNAL_OBJECTS =
@@ -240,10 +240,10 @@ MemoryManagement_EXTERNAL_OBJECTS =
 MemoryManagement.exe: CMakeFiles/MemoryManagement.dir/bottom.c.obj
 MemoryManagement.exe: CMakeFiles/MemoryManagement.dir/test.c.obj
 MemoryManagement.exe: CMakeFiles/MemoryManagement.dir/call.c.obj
-MemoryManagement.exe: CMakeFiles/MemoryManagement.dir/initialize.c.obj
 MemoryManagement.exe: CMakeFiles/MemoryManagement.dir/process.c.obj
-MemoryManagement.exe: CMakeFiles/MemoryManagement.dir/page_frame.c.obj
 MemoryManagement.exe: CMakeFiles/MemoryManagement.dir/page_table.c.obj
+MemoryManagement.exe: CMakeFiles/MemoryManagement.dir/main.c.obj
+MemoryManagement.exe: CMakeFiles/MemoryManagement.dir/page_bit_map.c.obj
 MemoryManagement.exe: CMakeFiles/MemoryManagement.dir/build.make
 MemoryManagement.exe: CMakeFiles/MemoryManagement.dir/linklibs.rsp
 MemoryManagement.exe: CMakeFiles/MemoryManagement.dir/objects1.rsp
@@ -259,10 +259,10 @@ CMakeFiles/MemoryManagement.dir/build: MemoryManagement.exe
 CMakeFiles/MemoryManagement.dir/requires: CMakeFiles/MemoryManagement.dir/bottom.c.obj.requires
 CMakeFiles/MemoryManagement.dir/requires: CMakeFiles/MemoryManagement.dir/test.c.obj.requires
 CMakeFiles/MemoryManagement.dir/requires: CMakeFiles/MemoryManagement.dir/call.c.obj.requires
-CMakeFiles/MemoryManagement.dir/requires: CMakeFiles/MemoryManagement.dir/initialize.c.obj.requires
 CMakeFiles/MemoryManagement.dir/requires: CMakeFiles/MemoryManagement.dir/process.c.obj.requires
-CMakeFiles/MemoryManagement.dir/requires: CMakeFiles/MemoryManagement.dir/page_frame.c.obj.requires
 CMakeFiles/MemoryManagement.dir/requires: CMakeFiles/MemoryManagement.dir/page_table.c.obj.requires
+CMakeFiles/MemoryManagement.dir/requires: CMakeFiles/MemoryManagement.dir/main.c.obj.requires
+CMakeFiles/MemoryManagement.dir/requires: CMakeFiles/MemoryManagement.dir/page_bit_map.c.obj.requires
 
 .PHONY : CMakeFiles/MemoryManagement.dir/requires
 

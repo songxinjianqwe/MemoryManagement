@@ -10,4 +10,7 @@
 #include "process.h"
 #include "page_bit_map.h"
 #include "page_table.h"
-
+int main(){
+    init();
+    return 0;
+}

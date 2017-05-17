@@ -4,9 +4,10 @@
 
 #ifndef MEMORYMANAGEMENT_PROCESS_H
 #define MEMORYMANAGEMENT_PROCESS_H
-struct prcess * loadProcessTable();
-createProcess(int pid);
-finalizeProcess(int pid);
+struct PCB ** loadProcessTable();
+void initProcessTable();
+void createProcess(int pid);
+void finalizeProcess(int pid);
 
 
 

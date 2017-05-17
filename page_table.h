@@ -4,8 +4,12 @@
 
 #ifndef MEMORYMANAGEMENT_PAGE_TABLE_H
 #define MEMORYMANAGEMENT_PAGE_TABLE_H
+#include "type.h"
+#include "struct.h"
 
-struct pageTable * loadPageTable();
+struct page **loadPageTable();
+void initPageTable();
+
 
 
 #endif //MEMORYMANAGEMENT_PAGE_TABLE_H

@@ -96,16 +96,13 @@
 		<Unit filename="D:/CPP/MemoryManagement/call.h">
 			<Option target="MemoryManagement"/>
 		</Unit>
-		<Unit filename="D:/CPP/MemoryManagement/initialize.c">
+		<Unit filename="D:/CPP/MemoryManagement/main.c">
 			<Option target="MemoryManagement"/>
 		</Unit>
-		<Unit filename="D:/CPP/MemoryManagement/initialize.h">
+		<Unit filename="D:/CPP/MemoryManagement/page_bit_map.c">
 			<Option target="MemoryManagement"/>
 		</Unit>
-		<Unit filename="D:/CPP/MemoryManagement/page_frame.c">
-			<Option target="MemoryManagement"/>
-		</Unit>
-		<Unit filename="D:/CPP/MemoryManagement/page_frame.h">
+		<Unit filename="D:/CPP/MemoryManagement/page_bit_map.h">
 			<Option target="MemoryManagement"/>
 		</Unit>
 		<Unit filename="D:/CPP/MemoryManagement/page_table.c">

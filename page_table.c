@@ -71,7 +71,7 @@ int allocatePageFrames(unsigned pageSize) {
         return CONTINUED_PAGE_FRAME_NOT_FOUND;
     }
     int pageFrameResult;
-    //修改位示图
+    //修改页表项
     for (unsigned i = 0; i < pageSize; ++i) {
         pageFrameResult = allocateOnePage();
         if (pageFrameResult < 0) {
@@ -120,4 +120,36 @@ int writePage(data_unit data, unsigned pageNum, unsigned offset) {
     flushPage(page);
     mem_write(data, PAGE_FRAME_BEGIN_POS + combinePhyAddr(page.pageFrameNum, offset));
     return SUCCESS;
+}
+
+void freePageFrames(unsigned pageTableStart, unsigned pageSize) {
+    struct PageTable pageTable = loadPageTable();
+    for (unsigned i = 0; i < pageSize; ++i) {
+        freeOnePage(pageTable.pageItems[pageTableStart + i].pageFrameNum);
+        pageTable.pageItems[pageTableStart + i].pageFrameNum = 0;
+        pageTable.pageItems[pageTableStart + i].sign = 0;
+    }
+    flushPageTable(pageTable);
+}
+
+
+/**
+ * 如果访问的页号超过进程持有的页数，那么越界
+ * 如果申请的内存不是页的大小的整数倍（多分配了一页的一部分），那么当访问最后一页的超过申请的内存的部分时，也是越界的
+ * @param pcb 
+ * @param address 
+ * @return 是否越界
+ */
+bool isAccessFail(struct PCB pcb, v_address address) {
+    int pageNum = parseToStartAddress(address);
+    int offset = parseToOffset(address);
+    if(pageNum >= pcb.pageSize){
+        return true;
+    }
+    if(pcb.lastPageLimit != 0){
+        if(pcb.pageSize - 1 == pageNum && offset >= pcb.lastPageLimit){
+            return true;
+        }
+    }
+    return false;
 }

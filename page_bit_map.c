@@ -68,3 +68,16 @@ int allocateOnePage() {
     }
     return OUT_OF_MEMORY;
 }
+
+void freeOnePage(unsigned pageFrameNum) {
+    struct PageBitMap bitMap = loadPageBitMap();
+    bitMap.freePageFrameSize++;
+    //pageFrameNum是页框号，页框号除8得到所在的字节，然后余数就是第i位
+    //余数为1->第6位置0（从右往左）
+    //7-1 = 6
+    //1<<6 = 0100 0000
+    //~(1<<6) = 1011 1111 
+    //与~(1<<6)做与运算即可将第6位置0
+    bitMap.bits[pageFrameNum / 8] &= ~(1 << (7 - (pageFrameNum % 8)));
+    flushPageBitMap(bitMap);
+}

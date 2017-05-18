@@ -15,7 +15,7 @@ struct PCBTable loadPCBTable();
  */
 void initPCBTable();
 int createProcess(m_pid_t pid,m_size_t size);
-void finalizeProcess(m_pid_t pid);
+void finalizeProcess(struct PCB pcb);
 void flushPCBTable(struct PCBTable table);
 /**
  * 加载某个进程的PCB

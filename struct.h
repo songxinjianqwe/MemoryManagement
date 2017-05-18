@@ -21,18 +21,18 @@
 
 #define PROCESS_NUM 1024 //进程总数为1024个 1024
 
-#define PCB_SIZE (sizeof(struct PCB)) //进程控制块的大小为8个字节 8
+#define PCB_SIZE (sizeof(struct PCB)) //进程控制块的大小为12个字节 12
 
-#define PCB_TABLE_SIZE (PROCESS_NUM*PCB_SIZE) //进程表的大小为2^13 字节 8192
+#define PCB_TABLE_SIZE (PROCESS_NUM*PCB_SIZE) //进程表的大小为12288字节 
 
-#define PAGE_FRAME_BEGIN_POS  (PAGE_BIT_STRUCT_SIZE+PAGE_TABLE_SIZE+PCB_TABLE_SIZE) //页框的开始地址 143362
+#define PAGE_FRAME_BEGIN_POS  (PAGE_BIT_STRUCT_SIZE+PAGE_TABLE_SIZE+PCB_TABLE_SIZE) //页框的开始地址 147458
 
 #define  OUT_OF_MEMORY -10 //内存不足
 #define  PID_DUPLICATED -20  //PID已被占用
 #define  CONTINUED_PAGE_FRAME_NOT_FOUND  -30  //没有足够的连续的页表项
 #define  SUCCESS 0 //成功
 #define  PID_NOT_FOUND -40  //未找到此进程
-#define  ACCESS_FAIL -50 //地址越界
+#define  ACCESS_FAIL -1 //地址越界
 
 typedef unsigned int u4;
 typedef unsigned short u2;
@@ -44,6 +44,7 @@ typedef unsigned char u1;
 struct PCB {
     u2 pid;
     u2 pageSize;
+    u2 lastPageLimit;
     u4 pageTableStart;
 };
 

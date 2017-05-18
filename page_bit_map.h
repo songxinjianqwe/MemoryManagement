@@ -32,6 +32,6 @@ bool isAllocatable(m_size_t size);
  * @return 
  */
 int allocateOnePage();
-
+void freeOnePage(unsigned pageFrameNum);
 
 #endif //MEMORYMANAGEMENT_PAGE_BIT_MAP_H

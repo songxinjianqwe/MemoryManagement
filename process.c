@@ -49,10 +49,14 @@ void flushPCBTable(struct PCBTable table) {
     }
 }
 
+
 void initPCBTable() {
     struct PCBTable table = loadPCBTable();
     for (unsigned i = 0; i < PROCESS_NUM; ++i) {
         table.pcbs[i].pid = 0;
+        table.pcbs[i].pageTableStart = 0;
+        table.pcbs[i].pageSize = 0;
+        table.pcbs[i].lastPageLimit = 0;
     }
     flushPCBTable(table);
 }
@@ -68,8 +72,9 @@ int createProcess(m_pid_t pid, m_size_t size) {
     } else {
         occupiedPageSize = size / PAGE_FRAME_SIZE + 1;
     }
-    printf("%d %% PAGE_FRAME_SIZE %d\n", size, size % PAGE_FRAME_SIZE);
-    printf("occupiedPageSize:%d\n", occupiedPageSize);
+//    printf("%d %% PAGE_FRAME_SIZE %d\n", size, size % PAGE_FRAME_SIZE);
+//    printf("occupiedPageSize:%d\n", occupiedPageSize);
+    
     //分配页框
     int result = allocatePageFrames(occupiedPageSize);
     if (result < 0) {
@@ -79,11 +84,16 @@ int createProcess(m_pid_t pid, m_size_t size) {
         pcb.pid = pid;
         pcb.pageSize = occupiedPageSize;
         pcb.pageTableStart = result;
+        pcb.lastPageLimit = size % PAGE_FRAME_SIZE;
         flushPCB(pcb);
         return SUCCESS;
     }
 }
 
-void finalizeProcess(m_pid_t pid) {
-
+void finalizeProcess(struct PCB pcb) {
+    freePageFrames(pcb.pageTableStart, pcb.pageSize);
+    //将pcb清空
+    for (unsigned i = 0; i < PCB_SIZE; ++i) {
+        mem_write(0, PAGE_BIT_STRUCT_SIZE + PAGE_TABLE_SIZE + pcb.pid * PCB_SIZE + i);
+    }
 }

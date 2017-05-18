@@ -29,6 +29,8 @@ void printInitParams() {
     printf("PAGE_FRAME_BEGIN_POS:%d\n", PAGE_FRAME_BEGIN_POS);
 }
 
+
+
 void init() {
     initPageBitMap();
     initPageTable();
@@ -42,11 +44,12 @@ int read(data_unit *data, v_address address, m_pid_t pid) {
     }
     int pageNum = parseToStartAddress(address);
     int offset = parseToOffset(address);
-    if (pageNum > pcb.pageSize) {
+    printf("pageNum:%d\n", pageNum);
+    printf("offset:%d\n", offset);
+
+    if (isAccessFail(pcb, address)) {
         return ACCESS_FAIL;
     }
-//    printf("pageTableStart:%d\n",pcb.pageTableStart);
-//    printf("pageNum:%d\n",pageNum);
     *data = readPage(pcb.pageTableStart + pageNum, offset);
     return SUCCESS;
 }
@@ -58,10 +61,10 @@ int write(data_unit data, v_address address, m_pid_t pid) {
     }
     int pageNum = parseToStartAddress(address);
     int offset = parseToOffset(address);
-    if (pageNum > pcb.pageSize) {
+    if (isAccessFail(pcb, address)) {
         return ACCESS_FAIL;
     }
-    writePage(data,pcb.pageTableStart+pageNum,offset);
+    writePage(data, pcb.pageTableStart + pageNum, offset);
     return SUCCESS;
 }
 
@@ -77,17 +80,15 @@ int allocate(v_address *address, m_size_t size, m_pid_t pid) {
     return result;
 }
 
-int free(v_address address, m_pid_t pid){
-    printf("call free\n");
-//     struct PCB pcb = loadPCB(pid);
-//    if (pcb.pid == 0) {
-//        return PID_NOT_FOUND;
-//    }
-//    int pageNum = parseToStartAddress(address);
-//    int offset = parseToOffset(address);
-//    if (pageNum > pcb.pageSize) {
-//        return ACCESS_FAIL;
-//    }
-    
-    return 0;
+int free_memory(v_address address, m_pid_t pid) {
+    struct PCB pcb = loadPCB(pid);
+    if (pcb.pid == 0) {
+        return PID_NOT_FOUND;
+    }
+    int pageNum = parseToStartAddress(address);
+    if (isAccessFail(pcb, address)) {
+        return ACCESS_FAIL;
+    }
+    finalizeProcess(pcb);
+    return SUCCESS;
 }

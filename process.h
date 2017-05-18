@@ -8,7 +8,7 @@
 
 struct PCBTable loadPCBTable();
 void initPCBTable();
-void createProcess(int pid,m_size_t size);
+int createProcess(int pid,m_size_t size);
 void finalizeProcess(int pid);
 void flushPCBTable(struct PCBTable table);
 

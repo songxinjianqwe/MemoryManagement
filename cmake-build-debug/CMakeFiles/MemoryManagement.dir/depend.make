@@ -43,6 +43,7 @@ CMakeFiles/MemoryManagement.dir/page_table.c.obj: ../type.h
 
 CMakeFiles/MemoryManagement.dir/process.c.obj: ../bottom.h
 CMakeFiles/MemoryManagement.dir/process.c.obj: ../call.h
+CMakeFiles/MemoryManagement.dir/process.c.obj: ../page_table.h
 CMakeFiles/MemoryManagement.dir/process.c.obj: ../process.c
 CMakeFiles/MemoryManagement.dir/process.c.obj: ../process.h
 CMakeFiles/MemoryManagement.dir/process.c.obj: ../struct.h

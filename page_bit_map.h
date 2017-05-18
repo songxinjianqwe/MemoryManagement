@@ -27,4 +27,11 @@ void initPageBitMap();
 
 bool isAllocatable(m_size_t size);
 
+/**
+ * 分配一个页框，修改位示图和空闲块数，返回页框号
+ * @return 
+ */
+int allocateOnePage();
+
+
 #endif //MEMORYMANAGEMENT_PAGE_BIT_MAP_H

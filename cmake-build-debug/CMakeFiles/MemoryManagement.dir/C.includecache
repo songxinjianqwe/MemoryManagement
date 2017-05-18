@@ -79,6 +79,8 @@ D:/CPP/MemoryManagement/page_table.h
 D:/CPP/MemoryManagement/page_bit_map.h
 struct.h
 D:/CPP/MemoryManagement/struct.h
+stdbool.h
+D:/CPP/MemoryManagement/stdbool.h
 
 D:/CPP/MemoryManagement/page_table.c
 type.h
@@ -97,6 +99,8 @@ page_bit_map.h
 D:/CPP/MemoryManagement/page_bit_map.h
 page_table.h
 D:/CPP/MemoryManagement/page_table.h
+stdbool.h
+D:/CPP/MemoryManagement/stdbool.h
 
 D:/CPP/MemoryManagement/page_table.h
 type.h
@@ -109,6 +113,8 @@ process.h
 D:/CPP/MemoryManagement/process.h
 stdio.h
 -
+page_table.h
+D:/CPP/MemoryManagement/page_table.h
 
 D:/CPP/MemoryManagement/process.h
 struct.h

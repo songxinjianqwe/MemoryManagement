@@ -44,6 +44,7 @@ CMakeFiles/MemoryManagement.dir/page_table.c.obj
 CMakeFiles/MemoryManagement.dir/process.c.obj
  D:/CPP/MemoryManagement/bottom.h
  D:/CPP/MemoryManagement/call.h
+ D:/CPP/MemoryManagement/page_table.h
  D:/CPP/MemoryManagement/process.c
  D:/CPP/MemoryManagement/process.h
  D:/CPP/MemoryManagement/struct.h

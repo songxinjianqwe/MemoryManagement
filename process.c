@@ -4,6 +4,7 @@
 
 #include "process.h"
 #include <stdio.h>
+#include "page_table.h"
 
 struct PCBTable loadPCBTable() {
     struct PCBTable table;
@@ -39,21 +40,33 @@ void initPCBTable() {
     flushPCBTable(table);
 }
 
-void createProcess(int pid, m_size_t size) {
+int createProcess(int pid, m_size_t size) {
     struct PCBTable table = loadPCBTable();
-    for (unsigned i = 0; i < PROCESS_NUM; ++i) {
-        if (table.pcbs[i].pid == 0) {
-            table.pcbs[i].pid = pid;
-            if (size % PAGE_FRAME_SIZE == 0) {
-                table.pcbs[i].pageSize = size / PAGE_FRAME_SIZE;
-            } else {
-                table.pcbs[i].pageSize = size / PAGE_FRAME_SIZE + 1;
-            }
-            break;
-        }
+    if(table.pcbs[pid].pid != 0){
+        return PID_DUPLICATED;
+    }
+    u2 occupiedPageSize;
+    if (size % PAGE_FRAME_SIZE == 0) {
+        occupiedPageSize = size / PAGE_FRAME_SIZE;
+    } else {
+        occupiedPageSize = size / PAGE_FRAME_SIZE + 1;
+    }
+    printf("%d %% PAGE_FRAME_SIZE %d\n",size,size % PAGE_FRAME_SIZE);
+    printf("occupiedPageSize:%d\n",occupiedPageSize);
+    //分配页框
+    int result = allocatePageFrames(occupiedPageSize);
+    if(result < 0){
+        return result;
+    }else{
+        //分配进程号和页框个数
+        table.pcbs[pid].pid = pid;
+        table.pcbs[pid].pageSize = occupiedPageSize;
+        table.pcbs[pid].pageTableStart = result;
+        flushPCBTable(table);
+        return SUCCESS;
     }
 }
 
 void finalizeProcess(int pid) {
-
+    
 }

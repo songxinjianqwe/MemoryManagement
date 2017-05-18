@@ -10,6 +10,7 @@
 #include "process.h"
 #include "page_bit_map.h"
 #include "page_table.h"
+#include "stdbool.h"
 
 struct PageTable loadPageTable() {
     struct PageTable table;
@@ -41,8 +42,46 @@ void initPageTable() {
     struct PageTable pageTable = loadPageTable();
     for(unsigned i = 0 ; i < TOTAL_PAGE_NUM;++i){
         pageTable.pageItems[i].pageFrameNum = 0;
-        pageTable.pageItems[i].sign[0] = 0;
-        pageTable.pageItems[i].sign[1] = 0;
+        pageTable.pageItems[i].sign = 0;
     }
     flushPageTable(pageTable);
+}
+
+
+int allocatePageFrames(unsigned pageSize){
+    struct PageTable pageTable = loadPageTable();
+    bool isFree;
+    unsigned pageStart;
+    //找连续的pageSize个空闲页表项，如果没有，那么返回CONTINUED_PAGE_FRAME_NOT_FOUND
+    for(pageStart = 0; pageStart < TOTAL_PAGE_NUM - pageSize;++pageStart){
+        isFree = true;
+        for(unsigned j = 0; j < pageSize;++j){
+            if(pageTable.pageItems[pageStart+j].sign != 0){
+                isFree = false;
+                break;
+            }
+        }
+        if(isFree){
+            break;
+        }
+    }
+    
+    if(!isFree){
+        return CONTINUED_PAGE_FRAME_NOT_FOUND;
+    }
+    int pageFrameResult;
+    //修改位示图
+    for(unsigned i = 0; i < pageSize;++i){
+        pageFrameResult = allocateOnePage();
+        if(pageFrameResult < 0){
+            return pageFrameResult;
+        }else{
+            pageTable.pageItems[pageStart+i].pageFrameNum = pageFrameResult;
+            //最后一位是占用位，置1
+            pageTable.pageItems[pageStart+i].sign = pageTable.pageItems[pageStart+i].sign | 1;
+            
+        }
+    }
+    flushPageTable(pageTable);
+    return pageStart;
 }

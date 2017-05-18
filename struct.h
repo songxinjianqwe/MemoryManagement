@@ -28,6 +28,11 @@
 
 #define PAGE_FRAME_BEGIN_POS  (PAGE_BIT_STRUCT_SIZE+PAGE_TABLE_SIZE+PCB_TABLE_SIZE) //页框的开始地址 143362
 
+#define  OUT_OF_MEMORY -10
+#define  PID_DUPLICATED -20
+#define  CONTINUED_PAGE_FRAME_NOT_FOUND  -30
+#define  SUCCESS 0
+
 typedef unsigned int u4;
 typedef unsigned short u2;
 typedef unsigned char u1;
@@ -58,15 +63,17 @@ struct PageBitMap {
 
 /**
  * 页表项结构，4字节一个表项
+ * 如果pageFrameNum为-1，那么表示该页表项未被占用
  */
 struct PageItem {
     u2 pageFrameNum;
-    /**
-     * 最低位：主存驻留标识
-     * 次低位：引用标识
-     * 次次低位：修改标识
+    
+    /**最低位：该页表项是否被使用
+     * 次低位：主存驻留标识
+     * 次次低位：引用标识
+     * 次次次低位：修改标识
      */
-    u1 sign[2];
+     u2 sign;
 };
 
 

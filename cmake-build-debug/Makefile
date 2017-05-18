@@ -122,6 +122,33 @@ MemoryManagement/fast:
 	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/build
 .PHONY : MemoryManagement/fast
 
+address.obj: address.c.obj
+
+.PHONY : address.obj
+
+# target to build an object file
+address.c.obj:
+	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/address.c.obj
+.PHONY : address.c.obj
+
+address.i: address.c.i
+
+.PHONY : address.i
+
+# target to preprocess a source file
+address.c.i:
+	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/address.c.i
+.PHONY : address.c.i
+
+address.s: address.c.s
+
+.PHONY : address.s
+
+# target to generate assembly for a file
+address.c.s:
+	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/address.c.s
+.PHONY : address.c.s
+
 bottom.obj: bottom.c.obj
 
 .PHONY : bottom.obj
@@ -320,6 +347,9 @@ help:
 	@echo ... rebuild_cache
 	@echo ... MemoryManagement
 	@echo ... edit_cache
+	@echo ... address.obj
+	@echo ... address.i
+	@echo ... address.s
 	@echo ... bottom.obj
 	@echo ... bottom.i
 	@echo ... bottom.s

@@ -10,6 +10,7 @@
 #include "process.h"
 #include "page_bit_map.h"
 #include "page_table.h"
+#include "address.h"
 #include "stdbool.h"
 
 struct PageTable loadPageTable() {
@@ -33,14 +34,14 @@ void flushPageTable(struct PageTable table) {
         ptr = (data_unit *) &table.pageItems[i];
         //读入每一个页表项
         for (unsigned j = 0; j < PAGE_TABLE_ITEM_SIZE; ++j) {
-            mem_write(*(ptr + j),PAGE_BIT_STRUCT_SIZE + i * PAGE_TABLE_ITEM_SIZE + j);
+            mem_write(*(ptr + j), PAGE_BIT_STRUCT_SIZE + i * PAGE_TABLE_ITEM_SIZE + j);
         }
     }
 }
 
 void initPageTable() {
     struct PageTable pageTable = loadPageTable();
-    for(unsigned i = 0 ; i < TOTAL_PAGE_NUM;++i){
+    for (unsigned i = 0; i < TOTAL_PAGE_NUM; ++i) {
         pageTable.pageItems[i].pageFrameNum = 0;
         pageTable.pageItems[i].sign = 0;
     }
@@ -48,40 +49,65 @@ void initPageTable() {
 }
 
 
-int allocatePageFrames(unsigned pageSize){
+int allocatePageFrames(unsigned pageSize) {
     struct PageTable pageTable = loadPageTable();
     bool isFree;
     unsigned pageStart;
     //找连续的pageSize个空闲页表项，如果没有，那么返回CONTINUED_PAGE_FRAME_NOT_FOUND
-    for(pageStart = 0; pageStart < TOTAL_PAGE_NUM - pageSize;++pageStart){
+    for (pageStart = 0; pageStart < TOTAL_PAGE_NUM - pageSize; ++pageStart) {
         isFree = true;
-        for(unsigned j = 0; j < pageSize;++j){
-            if(pageTable.pageItems[pageStart+j].sign != 0){
+        for (unsigned j = 0; j < pageSize; ++j) {
+            if (pageTable.pageItems[pageStart + j].sign != 0) {
                 isFree = false;
                 break;
             }
         }
-        if(isFree){
+        if (isFree) {
             break;
         }
     }
-    
-    if(!isFree){
+
+    if (!isFree) {
         return CONTINUED_PAGE_FRAME_NOT_FOUND;
     }
     int pageFrameResult;
     //修改位示图
-    for(unsigned i = 0; i < pageSize;++i){
+    for (unsigned i = 0; i < pageSize; ++i) {
         pageFrameResult = allocateOnePage();
-        if(pageFrameResult < 0){
+        if (pageFrameResult < 0) {
             return pageFrameResult;
-        }else{
-            pageTable.pageItems[pageStart+i].pageFrameNum = pageFrameResult;
+        } else {
+            pageTable.pageItems[pageStart + i].pageFrameNum = pageFrameResult;
             //最后一位是占用位，置1
-            pageTable.pageItems[pageStart+i].sign = pageTable.pageItems[pageStart+i].sign | 1;
-            
+            pageTable.pageItems[pageStart + i].sign = pageTable.pageItems[pageStart + i].sign | 1;
+
         }
     }
     flushPageTable(pageTable);
     return pageStart;
+}
+
+struct PageItem loadPage(unsigned pageNum) {
+    struct PageItem page;
+    data_unit *ptr = (data_unit *) &page;
+    for (unsigned i = 0; i < PAGE_TABLE_ITEM_SIZE; ++i) {
+        *(ptr + i) = mem_read(PAGE_BIT_STRUCT_SIZE + pageNum * PAGE_TABLE_ITEM_SIZE + i);
+    }
+    return page;
+}
+
+//由页号查页表
+data_unit readPage(unsigned pageNum, unsigned offset) {
+    struct PageItem page = loadPage(pageNum);
+    //将页表项的引用位置1
+    page.sign = page.sign | 0x4;
+    return mem_read(PAGE_FRAME_BEGIN_POS + combinePhyAddr(page.pageFrameNum, offset));
+}
+
+int writePage(data_unit data,unsigned pageNum,unsigned offset){
+    struct PageItem page = loadPage(pageNum);
+    //将页表项的引用位置1
+    page.sign = page.sign | 0x4;
+    mem_write(data,PAGE_FRAME_BEGIN_POS + combinePhyAddr(page.pageFrameNum, offset));
+    return SUCCESS;
 }

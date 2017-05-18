@@ -6,6 +6,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/MemoryManagement.dir/page_table.c.obj"
   "CMakeFiles/MemoryManagement.dir/main.c.obj"
   "CMakeFiles/MemoryManagement.dir/page_bit_map.c.obj"
+  "CMakeFiles/MemoryManagement.dir/address.c.obj"
   "MemoryManagement.pdb"
   "MemoryManagement.exe"
   "MemoryManagement.exe.manifest"

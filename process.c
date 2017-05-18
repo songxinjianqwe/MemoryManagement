@@ -20,6 +20,23 @@ struct PCBTable loadPCBTable() {
     return table;
 }
 
+struct PCB loadPCB(m_pid_t pid) {
+    struct PCB pcb;
+    data_unit *ptr = (data_unit *) &pcb;
+    //读入一个PCB
+    for (unsigned i = 0; i < PCB_SIZE; ++i) {
+        *(ptr + i) = mem_read(PAGE_BIT_STRUCT_SIZE + PAGE_TABLE_SIZE + pid * PCB_SIZE + i);
+    }
+    return pcb;
+}
+
+void flushPCB(struct PCB pcb) {
+    data_unit *ptr = (data_unit *) &pcb;
+    for (unsigned i = 0; i < PCB_SIZE; ++i) {
+        mem_write(*(ptr + i), PAGE_BIT_STRUCT_SIZE + PAGE_TABLE_SIZE + pcb.pid * PCB_SIZE + i);
+    }
+}
+
 void flushPCBTable(struct PCBTable table) {
     data_unit *ptr;
     for (unsigned i = 0; i < PROCESS_NUM; ++i) {
@@ -40,9 +57,9 @@ void initPCBTable() {
     flushPCBTable(table);
 }
 
-int createProcess(int pid, m_size_t size) {
-    struct PCBTable table = loadPCBTable();
-    if(table.pcbs[pid].pid != 0){
+int createProcess(m_pid_t pid, m_size_t size) {
+    struct PCB pcb = loadPCB(pid);
+    if (pcb.pid != 0) {
         return PID_DUPLICATED;
     }
     u2 occupiedPageSize;
@@ -51,22 +68,22 @@ int createProcess(int pid, m_size_t size) {
     } else {
         occupiedPageSize = size / PAGE_FRAME_SIZE + 1;
     }
-    printf("%d %% PAGE_FRAME_SIZE %d\n",size,size % PAGE_FRAME_SIZE);
-    printf("occupiedPageSize:%d\n",occupiedPageSize);
+    printf("%d %% PAGE_FRAME_SIZE %d\n", size, size % PAGE_FRAME_SIZE);
+    printf("occupiedPageSize:%d\n", occupiedPageSize);
     //分配页框
     int result = allocatePageFrames(occupiedPageSize);
-    if(result < 0){
+    if (result < 0) {
         return result;
-    }else{
+    } else {
         //分配进程号和页框个数
-        table.pcbs[pid].pid = pid;
-        table.pcbs[pid].pageSize = occupiedPageSize;
-        table.pcbs[pid].pageTableStart = result;
-        flushPCBTable(table);
+        pcb.pid = pid;
+        pcb.pageSize = occupiedPageSize;
+        pcb.pageTableStart = result;
+        flushPCB(pcb);
         return SUCCESS;
     }
 }
 
-void finalizeProcess(int pid) {
-    
+void finalizeProcess(m_pid_t pid) {
+
 }

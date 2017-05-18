@@ -6,6 +6,14 @@
 
 #IncludeRegexTransform: 
 
+D:/CPP/MemoryManagement/address.c
+address.h
+D:/CPP/MemoryManagement/address.h
+
+D:/CPP/MemoryManagement/address.h
+type.h
+D:/CPP/MemoryManagement/type.h
+
 D:/CPP/MemoryManagement/bottom.c
 stdlib.h
 -
@@ -33,6 +41,8 @@ page_table.h
 D:/CPP/MemoryManagement/page_table.h
 page_bit_map.h
 D:/CPP/MemoryManagement/page_bit_map.h
+address.h
+D:/CPP/MemoryManagement/address.h
 stdio.h
 -
 
@@ -57,6 +67,8 @@ page_bit_map.h
 D:/CPP/MemoryManagement/page_bit_map.h
 page_table.h
 D:/CPP/MemoryManagement/page_table.h
+address.h
+D:/CPP/MemoryManagement/address.h
 
 D:/CPP/MemoryManagement/page_bit_map.c
 stdio.h
@@ -99,6 +111,8 @@ page_bit_map.h
 D:/CPP/MemoryManagement/page_bit_map.h
 page_table.h
 D:/CPP/MemoryManagement/page_table.h
+address.h
+D:/CPP/MemoryManagement/address.h
 stdbool.h
 D:/CPP/MemoryManagement/stdbool.h
 

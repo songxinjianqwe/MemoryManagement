@@ -9,7 +9,7 @@
 #include "process.h"
 #include "page_table.h"
 #include "page_bit_map.h"
-
+#include "address.h"
 #include <stdio.h>
 
 /**
@@ -36,24 +36,48 @@ void init() {
 }
 
 int read(data_unit *data, v_address address, m_pid_t pid) {
-    return 0;
+    struct PCB pcb = loadPCB(pid);
+    if (pcb.pid == 0) {
+        return PID_NOT_FOUND;
+    }
+    int pageNum = parseToStartAddress(address);
+    int offset = parseToOffset(address);
+    if (pageNum > pcb.pageSize) {
+        return ACCESS_FAIL;
+    }
+//    printf("pageTableStart:%d\n",pcb.pageTableStart);
+//    printf("pageNum:%d\n",pageNum);
+    *data = readPage(pcb.pageTableStart + pageNum, offset);
+    return SUCCESS;
 }
 
 int write(data_unit data, v_address address, m_pid_t pid) {
-    return 0;
+    struct PCB pcb = loadPCB(pid);
+    if (pcb.pid == 0) {
+        return PID_NOT_FOUND;
+    }
+    int pageNum = parseToStartAddress(address);
+    int offset = parseToOffset(address);
+    if (pageNum > pcb.pageSize) {
+        return ACCESS_FAIL;
+    }
+    writePage(data,pcb.pageTableStart+pageNum,offset);
+    return SUCCESS;
 }
+
 
 int allocate(v_address *address, m_size_t size, m_pid_t pid) {
     if (!isAllocatable(size)) {
         return OUT_OF_MEMORY;
     }
     int result = createProcess(pid, size);
-    if(result >= 0){
-        *address = 0; 
+    if (result >= 0) {
+        *address = 0;
     }
     return result;
 }
 
 int free(v_address address, m_pid_t pid) {
+    
     return 0;
 }

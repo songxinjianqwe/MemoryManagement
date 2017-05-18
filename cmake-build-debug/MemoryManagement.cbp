@@ -84,6 +84,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="D:/CPP/MemoryManagement/address.c">
+			<Option target="MemoryManagement"/>
+		</Unit>
+		<Unit filename="D:/CPP/MemoryManagement/address.h">
+			<Option target="MemoryManagement"/>
+		</Unit>
 		<Unit filename="D:/CPP/MemoryManagement/bottom.c">
 			<Option target="MemoryManagement"/>
 		</Unit>

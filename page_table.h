@@ -17,5 +17,14 @@ void initPageTable();
  */
 int allocatePageFrames(unsigned pageSize);
 
+struct PageItem loadPage(unsigned pageNum);
+/**
+ * 给出页号和页内偏移，读取一个字节
+ * @param pageNum 
+ * @param offset 
+ * @return 
+ */
+data_unit readPage(unsigned pageNum,unsigned offset);
+int writePage(data_unit data,unsigned pageNum,unsigned offset);
 
 #endif //MEMORYMANAGEMENT_PAGE_TABLE_H

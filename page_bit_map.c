@@ -29,7 +29,7 @@ void flushPageBitMap(struct PageBitMap bitMap) {
 
 void initPageBitMap() {
     struct PageBitMap bitMap = loadPageBitMap();
-    bitMap.freePageFrameSize = TOTAL_PAGE_NUM;
+    bitMap.freePageFrameSize = TOTAL_PAGE_FRAME_NUM;
     for (unsigned i = 0; i < PAGE_BIT_MAP_SIZE; ++i) {
         bitMap.bits[i] = 0;
     }

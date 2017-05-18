@@ -18,5 +18,4 @@ int allocate(v_address *address, m_size_t size, m_pid_t pid);
 
 int free_memory(v_address address, m_pid_t pid);
 
-
 #endif //MXM_CALL_H

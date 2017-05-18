@@ -16,8 +16,10 @@
  * 打印初始化参数
  */
 void printInitParams() {
+    printf("DISK_SIZE:%d\n",DISK_SIZE);
     printf("MEMORY_SIZE:%d\n", MEMORY_SIZE);
     printf("PAGE_FRAME_SIZE:%d\n", PAGE_FRAME_SIZE);
+    printf("TOTAL_PAGE_FRAME_NUM:%d\n", TOTAL_PAGE_FRAME_NUM);
     printf("TOTAL_PAGE_NUM:%d\n", TOTAL_PAGE_NUM);
     printf("PAGE_BIT_MAP_SIZE:%d\n", PAGE_BIT_MAP_SIZE);
     printf("PAGE_BIT_STRUCT_SIZE:%d\n", PAGE_BIT_STRUCT_SIZE);
@@ -27,9 +29,12 @@ void printInitParams() {
     printf("PCB_SIZE:%d\n", PCB_SIZE);
     printf("PCB_TABLE_SIZE:%d\n", PCB_TABLE_SIZE);
     printf("PAGE_FRAME_BEGIN_POS:%d\n", PAGE_FRAME_BEGIN_POS);
+    printf("DISK_EXCHANGE_SPACE_BEGIN_POS:%d\n", DISK_EXCHANGE_SPACE_BEGIN_POS);
 }
 
-
+int main(){
+    printInitParams();
+}
 
 void init() {
     initPageBitMap();
@@ -44,9 +49,6 @@ int read(data_unit *data, v_address address, m_pid_t pid) {
     }
     int pageNum = parseToStartAddress(address);
     int offset = parseToOffset(address);
-    printf("pageNum:%d\n", pageNum);
-    printf("offset:%d\n", offset);
-
     if (isAccessFail(pcb, address)) {
         return ACCESS_FAIL;
     }

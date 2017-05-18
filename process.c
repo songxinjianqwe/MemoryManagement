@@ -66,7 +66,7 @@ int createProcess(m_pid_t pid, m_size_t size) {
     if (pcb.pid != 0) {
         return PID_DUPLICATED;
     }
-    u2 occupiedPageSize;
+    u4 occupiedPageSize;
     if (size % PAGE_FRAME_SIZE == 0) {
         occupiedPageSize = size / PAGE_FRAME_SIZE;
     } else {
@@ -74,7 +74,7 @@ int createProcess(m_pid_t pid, m_size_t size) {
     }
 //    printf("%d %% PAGE_FRAME_SIZE %d\n", size, size % PAGE_FRAME_SIZE);
 //    printf("occupiedPageSize:%d\n", occupiedPageSize);
-    
+
     //分配页框
     int result = allocatePageFrames(occupiedPageSize);
     if (result < 0) {

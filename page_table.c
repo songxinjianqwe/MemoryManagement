@@ -44,6 +44,7 @@ void initPageTable() {
     for (unsigned i = 0; i < TOTAL_PAGE_NUM; ++i) {
         pageTable.pageItems[i].pageFrameNum = 0;
         pageTable.pageItems[i].sign = 0;
+        pageTable.pageItems[i].diskAddr = 0;
     }
     flushPageTable(pageTable);
 }
@@ -103,7 +104,6 @@ void flushPage(struct PageItem page) {
     }
 }
 
-
 //由页号查页表
 data_unit readPage(unsigned pageNum, unsigned offset) {
     struct PageItem page = loadPage(pageNum);
@@ -128,6 +128,7 @@ void freePageFrames(unsigned pageTableStart, unsigned pageSize) {
         freeOnePage(pageTable.pageItems[pageTableStart + i].pageFrameNum);
         pageTable.pageItems[pageTableStart + i].pageFrameNum = 0;
         pageTable.pageItems[pageTableStart + i].sign = 0;
+        pageTable.pageItems[pageTableStart + i].diskAddr = 0;
     }
     flushPageTable(pageTable);
 }

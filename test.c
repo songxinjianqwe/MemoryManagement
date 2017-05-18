@@ -17,8 +17,6 @@
         return 0;
 
 // memory protection
-//进程1:1024个字节
-//进程2:1024个字节
 int test1()
 {
     init();
@@ -44,7 +42,6 @@ int test1()
 }
 
 // basic read/write
-//进程1:1024个字节
 int test2()
 {
     init();
@@ -71,7 +68,6 @@ int test2()
 }
 
 // locality
-//进程1：1024个字节
 int test3()
 {
     init();
@@ -112,8 +108,6 @@ int test3()
 }
 
 // locality, multiple processes
-//进程1：70M内存
-//进程2：70M内存
 int test4()
 {
     init();
@@ -161,10 +155,6 @@ int test4()
 }
 
 // basic allocation
-//进程1:8M内存
-//进程2:8M内存
-//进程3:8M内存
-//进程4:8M内存
 int test5()
 {
     init();
@@ -180,7 +170,6 @@ int test5()
 }
 
 // basic allocation/free
-//90个进程，每个进程1M内存
 int test6()
 {
     init();

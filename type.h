@@ -10,6 +10,7 @@ typedef unsigned int p_address;
 typedef unsigned char data_unit;
 typedef unsigned int m_size_t;
 typedef unsigned int m_pid_t;
+
 typedef long long unsigned int count_t;
 
 #endif //MXM_TYPE_H

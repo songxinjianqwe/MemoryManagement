@@ -96,18 +96,28 @@ struct PageItem loadPage(unsigned pageNum) {
     return page;
 }
 
+void flushPage(struct PageItem page) {
+    data_unit *ptr = (data_unit *) &page;
+    for (unsigned i = 0; i < PAGE_TABLE_ITEM_SIZE; ++i) {
+        mem_write(*(ptr + i), PAGE_BIT_STRUCT_SIZE + page.pageFrameNum * PAGE_TABLE_ITEM_SIZE + i);
+    }
+}
+
+
 //由页号查页表
 data_unit readPage(unsigned pageNum, unsigned offset) {
     struct PageItem page = loadPage(pageNum);
     //将页表项的引用位置1
     page.sign = page.sign | 0x4;
+    flushPage(page);
     return mem_read(PAGE_FRAME_BEGIN_POS + combinePhyAddr(page.pageFrameNum, offset));
 }
 
-int writePage(data_unit data,unsigned pageNum,unsigned offset){
+int writePage(data_unit data, unsigned pageNum, unsigned offset) {
     struct PageItem page = loadPage(pageNum);
     //将页表项的引用位置1
     page.sign = page.sign | 0x4;
-    mem_write(data,PAGE_FRAME_BEGIN_POS + combinePhyAddr(page.pageFrameNum, offset));
+    flushPage(page);
+    mem_write(data, PAGE_FRAME_BEGIN_POS + combinePhyAddr(page.pageFrameNum, offset));
     return SUCCESS;
 }

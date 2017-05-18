@@ -5,7 +5,6 @@
 #ifndef MEMORYMANAGEMENT_STRUCT_H
 #define MEMORYMANAGEMENT_STRUCT_H
 
-#include "call.h"
 #include "bottom.h"
 
 #define PAGE_FRAME_SIZE (1024*4)  //页框大小为4KB 4096

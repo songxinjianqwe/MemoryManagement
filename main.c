@@ -14,6 +14,7 @@
 
 void test() {
     init();
+    printf("init complete...\n");
     v_address va;
     //16个页框
     int result = allocate(&va, 65536, 1);

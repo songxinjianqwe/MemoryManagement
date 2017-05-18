@@ -7,6 +7,7 @@
 
 #include "type.h"
 
+
 void init();
 
 int read(data_unit *data, v_address address, m_pid_t pid);

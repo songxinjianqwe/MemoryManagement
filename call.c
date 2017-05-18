@@ -77,7 +77,17 @@ int allocate(v_address *address, m_size_t size, m_pid_t pid) {
     return result;
 }
 
-int free(v_address address, m_pid_t pid) {
+int free(v_address address, m_pid_t pid){
+    printf("call free\n");
+//     struct PCB pcb = loadPCB(pid);
+//    if (pcb.pid == 0) {
+//        return PID_NOT_FOUND;
+//    }
+//    int pageNum = parseToStartAddress(address);
+//    int offset = parseToOffset(address);
+//    if (pageNum > pcb.pageSize) {
+//        return ACCESS_FAIL;
+//    }
     
     return 0;
 }

@@ -7,6 +7,8 @@
 
 #include "bottom.h"
 
+//*****************************常量定义****************************************************************************//
+
 #define PAGE_FRAME_SIZE (1024*4)  //页框大小为4KB 4096
 
 #define TOTAL_PAGE_FRAME_NUM (MEMORY_SIZE/PAGE_FRAME_SIZE) //共有2^15个页框，适应物理内存的大小 32768
@@ -29,7 +31,12 @@
 
 #define PAGE_FRAME_BEGIN_POS  (PAGE_BIT_STRUCT_SIZE+PAGE_TABLE_SIZE+PCB_TABLE_SIZE) //页框的开始地址 1064962
 
-#define DISK_EXCHANGE_SPACE_BEGIN_POS 0 //磁盘中交换区的开始位置
+#define DISK_SWAP_SPACE_BEGIN_POS 0 //磁盘中交换区的开始位置
+
+
+
+
+//*************************错误状态码*********************************************************************//
 
 #define  OUT_OF_MEMORY -10 //内存不足
 
@@ -43,10 +50,16 @@
 
 #define  ACCESS_FAIL -1 //地址越界
 
+
+//**************************类型重命名*****************************************************************//
+
+
 typedef unsigned int u4;
 typedef unsigned short u2;
 typedef unsigned char u1;
 
+
+//*************************************结构定义*******************************************************//
 /**
  * 进程结构
  */

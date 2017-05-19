@@ -10,6 +10,8 @@
 #include "page_table.h"
 #include "page_bit_map.h"
 #include "address.h"
+#include "swap.h"
+
 #include <stdio.h>
 
 /**
@@ -29,7 +31,7 @@ void printInitParams() {
     printf("PCB_SIZE:%d\n", PCB_SIZE);
     printf("PCB_TABLE_SIZE:%d\n", PCB_TABLE_SIZE);
     printf("PAGE_FRAME_BEGIN_POS:%d\n", PAGE_FRAME_BEGIN_POS);
-    printf("DISK_EXCHANGE_SPACE_BEGIN_POS:%d\n", DISK_EXCHANGE_SPACE_BEGIN_POS);
+    printf("DISK_SWAP_SPACE_BEGIN_POS:%d\n", DISK_SWAP_SPACE_BEGIN_POS);
 }
 
 int main(){
@@ -40,6 +42,7 @@ void init() {
     initPageBitMap();
     initPageTable();
     initPCBTable();
+    initSwap();
 }
 
 int read(data_unit *data, v_address address, m_pid_t pid) {
@@ -72,7 +75,8 @@ int write(data_unit data, v_address address, m_pid_t pid) {
 
 
 int allocate(v_address *address, m_size_t size, m_pid_t pid) {
-    if (!isAllocatable(size)) {
+    if (!isAllocatable()) {
+        //只要有一个空闲页框，就可以创建进程
         return OUT_OF_MEMORY;
     }
     int result = createProcess(pid, size);
@@ -87,7 +91,6 @@ int free_memory(v_address address, m_pid_t pid) {
     if (pcb.pid == 0) {
         return PID_NOT_FOUND;
     }
-    int pageNum = parseToStartAddress(address);
     if (isAccessFail(pcb, address)) {
         return ACCESS_FAIL;
     }

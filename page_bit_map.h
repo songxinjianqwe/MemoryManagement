@@ -25,7 +25,7 @@ void flushPageBitMap(struct PageBitMap bitMap);
  */
 void initPageBitMap();
 
-bool isAllocatable(m_size_t size);
+bool isAllocatable();
 
 /**
  * 分配一个页框，修改位示图和空闲块数，返回页框号

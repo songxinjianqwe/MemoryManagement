@@ -34,4 +34,8 @@ data_unit readPage(unsigned pageNum,unsigned offset);
 int writePage(data_unit data,unsigned pageNum,unsigned offset);
 bool isAccessFail(struct PCB pcb, v_address address);
 
+
+
+int clockPaging();
+
 #endif //MEMORYMANAGEMENT_PAGE_TABLE_H

@@ -12,6 +12,7 @@
 #include "page_table.h"
 #include "address.h"
 #include "stdbool.h"
+#include "swap.h"
 
 struct PageTable loadPageTable() {
     struct PageTable table;
@@ -67,7 +68,6 @@ int allocatePageFrames(unsigned pageSize) {
             break;
         }
     }
-
     if (!isFree) {
         return CONTINUED_PAGE_FRAME_NOT_FOUND;
     }
@@ -78,10 +78,27 @@ int allocatePageFrames(unsigned pageSize) {
         if (pageFrameResult < 0) {
             return pageFrameResult;
         } else {
-            pageTable.pageItems[pageStart + i].pageFrameNum = pageFrameResult;
+            if (i == 0) {
+                pageTable.pageItems[pageStart + i].pageFrameNum = pageFrameResult;
+                pageTable.pageItems[pageStart + i].diskAddr = 0;
+                //置主存驻留标识为1
+                pageTable.pageItems[pageStart + i].sign = pageTable.pageItems[pageStart + i].sign | 2;
+            } else {
+                pageTable.pageItems[pageStart + i].pageFrameNum = 0;
+                //从磁盘中找一页空闲的区域
+                unsigned diskPage = allocateOneDiskPage(pageStart + i);
+                pageTable.pageItems[pageStart + i].diskAddr = diskPage;
+                pageTable.pageItems[pageStart + i].sign &= ~(2);
+
+                //置主存驻留标识为0
+                //2:0000 0010
+                //~2: 1111 1101
+                //xxxx xxxx & 1111 1101 =  xxxx xx0x
+                pageTable.pageItems[pageStart + i].sign &= ~(2);
+
+            }
             //最后一位是占用位，置1
             pageTable.pageItems[pageStart + i].sign = pageTable.pageItems[pageStart + i].sign | 1;
-
         }
     }
     flushPageTable(pageTable);
@@ -107,6 +124,14 @@ void flushPage(struct PageItem page) {
 //由页号查页表
 data_unit readPage(unsigned pageNum, unsigned offset) {
     struct PageItem page = loadPage(pageNum);
+    //xxxx xxxx & 0000 0010 = 0000 00x0
+    //如果主存驻留标识为0
+    if (!page.sign & 2) {
+        //发出缺页中断
+        page = pageFaultInterrupt(page);
+        //将页表项的主存驻留标识置1
+        page.sign = page.sign | 0x2;
+    }
     //将页表项的引用位置1
     page.sign = page.sign | 0x4;
     flushPage(page);
@@ -115,8 +140,14 @@ data_unit readPage(unsigned pageNum, unsigned offset) {
 
 int writePage(data_unit data, unsigned pageNum, unsigned offset) {
     struct PageItem page = loadPage(pageNum);
+    if (!page.sign & 2) {
+        //发出缺页中断
+        page = pageFaultInterrupt(page);
+    }
     //将页表项的引用位置1
     page.sign = page.sign | 0x4;
+    //将页表项的修改位置1
+    page.sign = page.sign | 0x8;
     flushPage(page);
     mem_write(data, PAGE_FRAME_BEGIN_POS + combinePhyAddr(page.pageFrameNum, offset));
     return SUCCESS;
@@ -125,7 +156,10 @@ int writePage(data_unit data, unsigned pageNum, unsigned offset) {
 void freePageFrames(unsigned pageTableStart, unsigned pageSize) {
     struct PageTable pageTable = loadPageTable();
     for (unsigned i = 0; i < pageSize; ++i) {
-        freeOnePage(pageTable.pageItems[pageTableStart + i].pageFrameNum);
+        //如果主存驻留标识为1，那么就释放该页框
+        if(pageTable.pageItems[pageTableStart + i].sign & 2){
+            freeOnePage(pageTable.pageItems[pageTableStart + i].pageFrameNum);
+        }
         pageTable.pageItems[pageTableStart + i].pageFrameNum = 0;
         pageTable.pageItems[pageTableStart + i].sign = 0;
         pageTable.pageItems[pageTableStart + i].diskAddr = 0;
@@ -144,11 +178,11 @@ void freePageFrames(unsigned pageTableStart, unsigned pageSize) {
 bool isAccessFail(struct PCB pcb, v_address address) {
     int pageNum = parseToStartAddress(address);
     int offset = parseToOffset(address);
-    if(pageNum >= pcb.pageSize){
+    if (pageNum >= pcb.pageSize) {
         return true;
     }
-    if(pcb.lastPageLimit != 0){
-        if(pcb.pageSize - 1 == pageNum && offset >= pcb.lastPageLimit){
+    if (pcb.lastPageLimit != 0) {
+        if (pcb.pageSize - 1 == pageNum && offset >= pcb.lastPageLimit) {
             return true;
         }
     }

@@ -126,6 +126,12 @@
 		<Unit filename="D:/CPP/MemoryManagement/struct.h">
 			<Option target="MemoryManagement"/>
 		</Unit>
+		<Unit filename="D:/CPP/MemoryManagement/swap.c">
+			<Option target="MemoryManagement"/>
+		</Unit>
+		<Unit filename="D:/CPP/MemoryManagement/swap.h">
+			<Option target="MemoryManagement"/>
+		</Unit>
 		<Unit filename="D:/CPP/MemoryManagement/test.c">
 			<Option target="MemoryManagement"/>
 		</Unit>

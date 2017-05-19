@@ -11,6 +11,7 @@ set(CMAKE_DEPENDS_CHECK_C
   "D:/CPP/MemoryManagement/page_bit_map.c" "D:/CPP/MemoryManagement/cmake-build-debug/CMakeFiles/MemoryManagement.dir/page_bit_map.c.obj"
   "D:/CPP/MemoryManagement/page_table.c" "D:/CPP/MemoryManagement/cmake-build-debug/CMakeFiles/MemoryManagement.dir/page_table.c.obj"
   "D:/CPP/MemoryManagement/process.c" "D:/CPP/MemoryManagement/cmake-build-debug/CMakeFiles/MemoryManagement.dir/process.c.obj"
+  "D:/CPP/MemoryManagement/swap.c" "D:/CPP/MemoryManagement/cmake-build-debug/CMakeFiles/MemoryManagement.dir/swap.c.obj"
   "D:/CPP/MemoryManagement/test.c" "D:/CPP/MemoryManagement/cmake-build-debug/CMakeFiles/MemoryManagement.dir/test.c.obj"
   )
 set(CMAKE_C_COMPILER_ID "GNU")

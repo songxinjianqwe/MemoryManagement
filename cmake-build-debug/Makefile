@@ -311,6 +311,33 @@ process.c.s:
 	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/process.c.s
 .PHONY : process.c.s
 
+swap.obj: swap.c.obj
+
+.PHONY : swap.obj
+
+# target to build an object file
+swap.c.obj:
+	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/swap.c.obj
+.PHONY : swap.c.obj
+
+swap.i: swap.c.i
+
+.PHONY : swap.i
+
+# target to preprocess a source file
+swap.c.i:
+	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/swap.c.i
+.PHONY : swap.c.i
+
+swap.s: swap.c.s
+
+.PHONY : swap.s
+
+# target to generate assembly for a file
+swap.c.s:
+	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/swap.c.s
+.PHONY : swap.c.s
+
 test.obj: test.c.obj
 
 .PHONY : test.obj
@@ -368,6 +395,9 @@ help:
 	@echo ... process.obj
 	@echo ... process.i
 	@echo ... process.s
+	@echo ... swap.obj
+	@echo ... swap.i
+	@echo ... swap.s
 	@echo ... test.obj
 	@echo ... test.i
 	@echo ... test.s

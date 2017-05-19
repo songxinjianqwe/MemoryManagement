@@ -2,9 +2,10 @@
 // Created by songx on 2017/5/17.
 //
 
-#include "process.h"
 #include <stdio.h>
+#include "process.h"
 #include "page_table.h"
+#include "swap.h"
 
 struct PCBTable loadPCBTable() {
     struct PCBTable table;
@@ -92,6 +93,8 @@ int createProcess(m_pid_t pid, m_size_t size) {
 
 void finalizeProcess(struct PCB pcb) {
     freePageFrames(pcb.pageTableStart, pcb.pageSize);
+    //释放进程的进程映像
+    freeSwap();
     //将pcb清空
     for (unsigned i = 0; i < PCB_SIZE; ++i) {
         mem_write(0, PAGE_BIT_STRUCT_SIZE + PAGE_TABLE_SIZE + pcb.pid * PCB_SIZE + i);

@@ -7,6 +7,7 @@ set(CMAKE_DEPENDS_CHECK_C
   "D:/CPP/MemoryManagement/address.c" "D:/CPP/MemoryManagement/cmake-build-debug/CMakeFiles/MemoryManagement.dir/address.c.obj"
   "D:/CPP/MemoryManagement/bottom.c" "D:/CPP/MemoryManagement/cmake-build-debug/CMakeFiles/MemoryManagement.dir/bottom.c.obj"
   "D:/CPP/MemoryManagement/call.c" "D:/CPP/MemoryManagement/cmake-build-debug/CMakeFiles/MemoryManagement.dir/call.c.obj"
+  "D:/CPP/MemoryManagement/external_page_table.c" "D:/CPP/MemoryManagement/cmake-build-debug/CMakeFiles/MemoryManagement.dir/external_page_table.c.obj"
   "D:/CPP/MemoryManagement/main.c" "D:/CPP/MemoryManagement/cmake-build-debug/CMakeFiles/MemoryManagement.dir/main.c.obj"
   "D:/CPP/MemoryManagement/page_bit_map.c" "D:/CPP/MemoryManagement/cmake-build-debug/CMakeFiles/MemoryManagement.dir/page_bit_map.c.obj"
   "D:/CPP/MemoryManagement/page_table.c" "D:/CPP/MemoryManagement/cmake-build-debug/CMakeFiles/MemoryManagement.dir/page_table.c.obj"

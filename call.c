@@ -11,6 +11,7 @@
 #include "page_bit_map.h"
 #include "address.h"
 #include "swap.h"
+#include "external_page_table.h"
 
 #include <stdio.h>
 
@@ -35,13 +36,11 @@ void printInitParams() {
     printf("PAGE_FRAME_BEGIN_POS:%d\n", PAGE_FRAME_BEGIN_POS);
 }
 
-int main(){
-    printInitParams();
-}
 
 void init() {
     initPageBitMap();
     initPageTable();
+    initExternalPageTable();
     initPCBTable();
     initSwap();
 }

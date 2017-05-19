@@ -102,6 +102,12 @@
 		<Unit filename="D:/CPP/MemoryManagement/call.h">
 			<Option target="MemoryManagement"/>
 		</Unit>
+		<Unit filename="D:/CPP/MemoryManagement/external_page_table.c">
+			<Option target="MemoryManagement"/>
+		</Unit>
+		<Unit filename="D:/CPP/MemoryManagement/external_page_table.h">
+			<Option target="MemoryManagement"/>
+		</Unit>
 		<Unit filename="D:/CPP/MemoryManagement/main.c">
 			<Option target="MemoryManagement"/>
 		</Unit>

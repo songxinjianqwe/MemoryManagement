@@ -11,8 +11,8 @@
 #include "page_bit_map.h"
 #include "page_table.h"
 #include "address.h"
-#include "stdbool.h"
 #include "swap.h"
+#include "external_page_table.h"
 
 struct PageTable loadPageTable() {
     struct PageTable table;
@@ -45,11 +45,9 @@ void initPageTable() {
     for (unsigned i = 0; i < TOTAL_PAGE_NUM; ++i) {
         pageTable.pageItems[i].pageFrameNum = 0;
         pageTable.pageItems[i].sign = 0;
-        pageTable.pageItems[i].diskAddress = 0;
     }
     flushPageTable(pageTable);
 }
-
 
 int allocatePageFrames(unsigned pageSize) {
     struct PageTable pageTable = loadPageTable();
@@ -71,36 +69,42 @@ int allocatePageFrames(unsigned pageSize) {
     if (!isFree) {
         return CONTINUED_PAGE_FRAME_NOT_FOUND;
     }
+    //读入外页表
+    struct ExternalPageTable externalPageTable = loadExternalPageTable();
     int pageFrameResult;
     //修改页表项
     for (unsigned i = 0; i < pageSize; ++i) {
-        pageFrameResult = allocatePhysicalPage();
-        if (pageFrameResult < 0) {
-            return pageFrameResult;
-        } else {
-            if (i == 0) {
+        //只为第一页分配页框
+        if (i == 0) {
+            pageFrameResult = allocatePhysicalPage();
+            if (pageFrameResult < 0) {
+                return pageFrameResult;
+            } else {
                 pageTable.pageItems[pageStart + i].pageFrameNum = pageFrameResult;
-                pageTable.pageItems[pageStart + i].diskAddress = 0;
                 //置主存驻留标识为1
                 setbit(pageTable.pageItems[pageStart + i].sign, PAGE_IN_MEMORY_INDEX);
-            } else {
-                pageTable.pageItems[pageStart + i].pageFrameNum = 0;
-                //从磁盘中找一页空闲的区域
-                int diskPageResult = allocateVirtualPage();
-                if (diskPageResult < 0) {
-                    return diskPageResult;
-                }
-                pageTable.pageItems[pageStart + i].diskAddress = diskPageResult;
-                //置主存驻留标识为0
-                clrbit(pageTable.pageItems[pageStart + i].sign, PAGE_IN_MEMORY_INDEX);
             }
-            //占用位置1
-            setbit(pageTable.pageItems[pageStart + i].sign, PAGE_USED_INDEX);
+        } else {
+            //其他页不分配页框
+            pageTable.pageItems[pageStart + i].pageFrameNum = 0;
+            //置主存驻留标识为0
+            clrbit(pageTable.pageItems[pageStart + i].sign, PAGE_IN_MEMORY_INDEX);
         }
+        //从磁盘中找一页空闲的区域，每页都会有对应的虚存页
+        int diskPageResult = allocateVirtualPage();
+        if (diskPageResult < 0) {
+            return diskPageResult;
+        }
+        externalPageTable.pageItems[pageStart + i].diskPageNum = diskPageResult;
+
+        //占用位置1
+        setbit(pageTable.pageItems[pageStart + i].sign, PAGE_USED_INDEX);
     }
     flushPageTable(pageTable);
+    flushExternalPageTable(externalPageTable);
     return pageStart;
 }
+
 
 struct PageItem loadPage(unsigned pageNum) {
     struct PageItem page;
@@ -111,60 +115,64 @@ struct PageItem loadPage(unsigned pageNum) {
     return page;
 }
 
-void flushPage(struct PageItem page) {
+void flushPage(unsigned pageNum, struct PageItem page) {
     data_unit *ptr = (data_unit *) &page;
     for (unsigned i = 0; i < PAGE_TABLE_ITEM_SIZE; ++i) {
-        mem_write(*(ptr + i), PAGE_BIT_STRUCT_SIZE + page.pageFrameNum * PAGE_TABLE_ITEM_SIZE + i);
+        mem_write(*(ptr + i), PAGE_BIT_STRUCT_SIZE + pageNum * PAGE_TABLE_ITEM_SIZE + i);
     }
 }
+
 
 //由页号查页表
 data_unit readPage(unsigned pageNum, unsigned offset, m_pid_t pid) {
     struct PageItem page = loadPage(pageNum);
+    struct ExternalPageItem externalPageItem = loadExternalPage(pageNum);
     //如果主存驻留标识为0
     if (!isPageInMainMemory(page.sign)) {
         //发出缺页中断
-        page.pageFrameNum = pageFaultInterrupt(page.diskAddress,pid);
+        page.pageFrameNum = pageFaultInterrupt(externalPageItem.diskPageNum, pid);
         //将页表项的主存驻留标识置1
         setbit(page.sign, PAGE_IN_MEMORY_INDEX);
     }
     //将页表项的引用位置1
     setbit(page.sign, PAGE_REFERRED_INDEX);
-    flushPage(page);
+    flushPage(pageNum, page);
     return mem_read(PAGE_FRAME_BEGIN_POS + combinePhyAddr(page.pageFrameNum, offset));
 }
 
 int writePage(data_unit data, unsigned pageNum, unsigned offset, m_pid_t pid) {
     struct PageItem page = loadPage(pageNum);
+    struct ExternalPageItem externalPageItem = loadExternalPage(pageNum);
     if (!isPageInMainMemory(page.sign)) {
         //发出缺页中断
-        page.pageFrameNum = pageFaultInterrupt(page.diskAddress,pid);
+        page.pageFrameNum = pageFaultInterrupt(externalPageItem.diskPageNum, pid);
+        //将页表项的主存驻留标识置1
+        setbit(page.sign, PAGE_IN_MEMORY_INDEX);
     }
     //将页表项的引用位置1
     setbit(page.sign, PAGE_REFERRED_INDEX);
     //将页表项的修改位置1
     setbit(page.sign, PAGE_MODIFIED_INDEX);
-    flushPage(page);
+    flushPage(pageNum, page);
     mem_write(data, PAGE_FRAME_BEGIN_POS + combinePhyAddr(page.pageFrameNum, offset));
     return SUCCESS;
 }
 
 void freePageFrames(unsigned pageTableStart, unsigned pageSize) {
     struct PageTable pageTable = loadPageTable();
+    struct ExternalPageTable externalPageTable = loadExternalPageTable();
     for (unsigned i = 0; i < pageSize; ++i) {
         //如果主存驻留标识为1，那么就释放该页框
         if (isPageInMainMemory(pageTable.pageItems[pageTableStart + i].sign)) {
             freePhysicalPage(pageTable.pageItems[pageTableStart + i].pageFrameNum);
         }
         //释放对应的磁盘空间
-        freeVirtualPage(pageTable.pageItems[pageTableStart + i].diskAddress);
+        freeVirtualPage(externalPageTable.pageItems[pageTableStart + i].diskPageNum);
         pageTable.pageItems[pageTableStart + i].pageFrameNum = 0;
         pageTable.pageItems[pageTableStart + i].sign = 0;
-        pageTable.pageItems[pageTableStart + i].diskAddress = 0;
     }
     flushPageTable(pageTable);
 }
-
 
 /**
  * 如果访问的页号超过进程持有的页数，那么越界
@@ -187,10 +195,21 @@ bool isAccessFail(struct PCB pcb, v_address address) {
     return false;
 }
 
-
-int clockPaging(m_pid_t pid) {
-
+//时钟分页调度算法
+//先实现一个简单的
+unsigned clockPaging(m_pid_t pid) {
+    struct PCB pcb = loadPCB(pid);
+    unsigned pageTableStart = pcb.pageTableStart;
+    struct PageTable pageTable = loadPageTable();
+    for (unsigned i = 0; i < pcb.pageSize; ++i) {
+        //如果引用位为0
+        if (!isPageReferred(pageTable.pageItems[pageTableStart + i].sign)) {
+            return pageTableStart + i;
+        }
+    }
+    return pageTableStart;
 }
+
 
 bool isPageUsed(u2 sign) {
     return sign & 1;

@@ -7,12 +7,21 @@
 
 #include "struct.h"
 
-unsigned pageFaultInterrupt(unsigned diskAddress, m_pid_t pid);
+unsigned pageFaultInterrupt(unsigned diskPageNum, m_pid_t pid);
 
 int allocateVirtualPage();
-
-void swapOut(unsigned diskAddress, unsigned pageFrameNum);
-void swapIn(unsigned diskAddress, unsigned pageFrameNum);
+/**
+ * 将一页的数据从页框拷贝到磁盘中
+ * @param diskPageNum 
+ * @param pageFrameNum 
+ */
+void swapOut(unsigned diskPageNum, unsigned pageFrameNum);
+/**
+ * 将一页的数据从磁盘拷贝到页框中
+ * @param diskPageNum 
+ * @param pageFrameNum 
+ */
+void swapIn(unsigned diskPageNum, unsigned pageFrameNum);
 
 void freeVirtualPage(unsigned pageNum);
 

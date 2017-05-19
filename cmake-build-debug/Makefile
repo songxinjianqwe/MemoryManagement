@@ -203,6 +203,33 @@ call.c.s:
 	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/call.c.s
 .PHONY : call.c.s
 
+external_page_table.obj: external_page_table.c.obj
+
+.PHONY : external_page_table.obj
+
+# target to build an object file
+external_page_table.c.obj:
+	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/external_page_table.c.obj
+.PHONY : external_page_table.c.obj
+
+external_page_table.i: external_page_table.c.i
+
+.PHONY : external_page_table.i
+
+# target to preprocess a source file
+external_page_table.c.i:
+	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/external_page_table.c.i
+.PHONY : external_page_table.c.i
+
+external_page_table.s: external_page_table.c.s
+
+.PHONY : external_page_table.s
+
+# target to generate assembly for a file
+external_page_table.c.s:
+	$(MAKE) -f CMakeFiles\MemoryManagement.dir\build.make CMakeFiles/MemoryManagement.dir/external_page_table.c.s
+.PHONY : external_page_table.c.s
+
 main.obj: main.c.obj
 
 .PHONY : main.obj
@@ -383,6 +410,9 @@ help:
 	@echo ... call.obj
 	@echo ... call.i
 	@echo ... call.s
+	@echo ... external_page_table.obj
+	@echo ... external_page_table.i
+	@echo ... external_page_table.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

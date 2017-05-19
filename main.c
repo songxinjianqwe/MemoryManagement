@@ -24,7 +24,7 @@ void test() {
     printf("bitMap.bits[0]: %d\n", bitMap.bits[0]);
     printf("bitMap.bits[1]: %d\n", bitMap.bits[1]);
     printf("bitMap.bits[2]: %d\n", bitMap.bits[2]);
-
+    
     struct PageTable table = loadPageTable();
     for (unsigned i = 0; i < 16; ++i) {
         printf("table.pageItems[%d].pageFrameNum: %d\n", i, table.pageItems[i].pageFrameNum);
@@ -53,4 +53,8 @@ void test() {
         printf("table.pageItems[%d].pageFrameNum: %d\n", i, table.pageItems[i].pageFrameNum);
         printf("table.pageItems[%d].sign: %d\n", i, table.pageItems[i].sign);
     }
+}
+
+int main(){
+    test();
 }

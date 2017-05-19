@@ -22,7 +22,7 @@ int allocatePageFrames(unsigned pageSize);
 void freePageFrames(unsigned pageTableStart, unsigned pageSize);
 
 struct PageItem loadPage(unsigned pageNum);
-void flushPage(struct PageItem page);
+void flushPage(unsigned  pageNum,struct PageItem page);
 
 /**
  * 从指定物理地址读取一个字节
@@ -37,7 +37,7 @@ int writePage(data_unit data,unsigned pageNum,unsigned offset,m_pid_t pid);
 bool isAccessFail(struct PCB pcb, v_address address);
 
 
-int clockPaging(m_pid_t pid);
+unsigned clockPaging(m_pid_t pid);
 
 bool isPageUsed(u2 sign);
 

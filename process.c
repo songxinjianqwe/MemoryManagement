@@ -15,7 +15,7 @@ struct PCBTable loadPCBTable() {
         ptr = (data_unit *) &table.pcbs[i];
         //读入一个PCB
         for (unsigned j = 0; j < PCB_SIZE; ++j) {
-            *(ptr + j) = mem_read(PAGE_BIT_STRUCT_SIZE + PAGE_TABLE_SIZE + i * PCB_SIZE + j);
+            *(ptr + j) = mem_read(PAGE_BIT_STRUCT_SIZE + PAGE_TABLE_SIZE + EXTERNAL_PAGE_TABLE_SIZE + i * PCB_SIZE + j);
         }
     }
     return table;
@@ -26,7 +26,7 @@ struct PCB loadPCB(m_pid_t pid) {
     data_unit *ptr = (data_unit *) &pcb;
     //读入一个PCB
     for (unsigned i = 0; i < PCB_SIZE; ++i) {
-        *(ptr + i) = mem_read(PAGE_BIT_STRUCT_SIZE + PAGE_TABLE_SIZE + pid * PCB_SIZE + i);
+        *(ptr + i) = mem_read(PAGE_BIT_STRUCT_SIZE + PAGE_TABLE_SIZE + EXTERNAL_PAGE_TABLE_SIZE + pid * PCB_SIZE + i);
     }
     return pcb;
 }
@@ -34,7 +34,8 @@ struct PCB loadPCB(m_pid_t pid) {
 void flushPCB(struct PCB pcb) {
     data_unit *ptr = (data_unit *) &pcb;
     for (unsigned i = 0; i < PCB_SIZE; ++i) {
-        mem_write(*(ptr + i), PAGE_BIT_STRUCT_SIZE + PAGE_TABLE_SIZE + pcb.pid * PCB_SIZE + i);
+        mem_write(*(ptr + i),
+                  PAGE_BIT_STRUCT_SIZE + PAGE_TABLE_SIZE + EXTERNAL_PAGE_TABLE_SIZE + pcb.pid * PCB_SIZE + i);
     }
 }
 
@@ -45,7 +46,8 @@ void flushPCBTable(struct PCBTable table) {
         ptr = (data_unit *) &table.pcbs[i];
         //读入一个PCB
         for (unsigned j = 0; j < PCB_SIZE; ++j) {
-            mem_write(*(ptr + j), PAGE_BIT_STRUCT_SIZE + PAGE_TABLE_SIZE + i * PCB_SIZE + j);
+            mem_write(*(ptr + j),
+                      PAGE_BIT_STRUCT_SIZE + PAGE_TABLE_SIZE + EXTERNAL_PAGE_TABLE_SIZE + i * PCB_SIZE + j);
         }
     }
 }
@@ -95,6 +97,6 @@ void finalizeProcess(struct PCB pcb) {
     freePageFrames(pcb.pageTableStart, pcb.pageSize);
     //将pcb清空
     for (unsigned i = 0; i < PCB_SIZE; ++i) {
-        mem_write(0, PAGE_BIT_STRUCT_SIZE + PAGE_TABLE_SIZE + pcb.pid * PCB_SIZE + i);
+        mem_write(0, PAGE_BIT_STRUCT_SIZE + PAGE_TABLE_SIZE + EXTERNAL_PAGE_TABLE_SIZE + pcb.pid * PCB_SIZE + i);
     }
 }

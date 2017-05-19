@@ -8,10 +8,16 @@
 #include "bottom.h"
 //***************************位运算宏***************************************************************************//
 
-#define setbit(x,y) x|=(1<<y) //将X的第Y位置1
-#define clrbit(x,y) x&=~(1<<y) //将X的第Y位清0
+#define setbit(x, y) x|=(1<<y) //将X的第Y位置1
+#define clrbit(x, y) x&=~(1<<y) //将X的第Y位清0
 
-
+//*********************内存模型***********************************************************************************//
+//1、内存的位示图
+//2、页表
+//3、外页表
+//4、进程表
+//5、交换区的位示图
+//6、页框们
 //*****************************常量定义****************************************************************************//
 
 #define PAGE_FRAME_SIZE (1024*4)  //页框大小为4KB 4096
@@ -26,7 +32,11 @@
 
 #define TOTAL_PAGE_NUM  (DISK_SIZE/PAGE_FRAME_SIZE) //可供分配的页数，页表项数适应虚拟内存的大小 131072
 
-#define PAGE_TABLE_SIZE (TOTAL_PAGE_NUM*PAGE_TABLE_ITEM_SIZE) //页表的大小为2^17字节 1048576
+#define PAGE_TABLE_SIZE (TOTAL_PAGE_NUM*PAGE_TABLE_ITEM_SIZE) //页表的大小为2^17字节 1048576 1MB
+
+#define EXTERNAL_PAGE_TABLE_ITEM_SIZE (sizeof(struct ExternalPageItem)) //外页表项的大小 
+
+#define EXTERNAL_PAGE_TABLE_SIZE (TOTAL_PAGE_NUM*EXTERNAL_PAGE_TABLE_ITEM_SIZE) //外页表的大小
 
 #define PROCESS_NUM 1024 //进程总数为1024个 1024
 
@@ -39,7 +49,7 @@
 
 #define SWAP_BIT_STRUCT_SIZE (sizeof(struct SwapBitMap)) //交换区位示图结构体的大小为16388个字节
 
-#define PAGE_FRAME_BEGIN_POS  (PAGE_BIT_STRUCT_SIZE+PAGE_TABLE_SIZE+SWAP_BIT_STRUCT_SIZE+PCB_TABLE_SIZE) //页框的开始地址 1081350
+#define PAGE_FRAME_BEGIN_POS  (PAGE_BIT_STRUCT_SIZE+PAGE_TABLE_SIZE+EXTERNAL_PAGE_TABLE_SIZE+SWAP_BIT_STRUCT_SIZE+PCB_TABLE_SIZE) //页框的开始地址 1081350
 
 
 //*************************错误状态码*********************************************************************//
@@ -108,7 +118,6 @@ struct PageItem {
      * 次次次低位：修改标识
      */
     u2 sign;
-    u4 diskAddress;
 };
 
 /**
@@ -118,10 +127,26 @@ struct PageTable {
     struct PageItem pageItems[TOTAL_PAGE_NUM];
 };
 
-
+/**
+ * 管理交换区的位示图
+ */
 struct SwapBitMap {
     u4 freeSwapPageSize;
     u1 bits[SWAP_BIT_MAP_SIZE];
 };
+/**
+ * 外页表项
+ */
+struct ExternalPageItem{
+    u4 diskPageNum;
+};
+
+/**
+ * 外页表
+ */
+struct ExternalPageTable{
+    struct ExternalPageItem pageItems[TOTAL_PAGE_NUM];
+};
+
 
 #endif //MEMORYMANAGEMENT_STRUCT_H

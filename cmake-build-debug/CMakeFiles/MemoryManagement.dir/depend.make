@@ -13,12 +13,19 @@ CMakeFiles/MemoryManagement.dir/call.c.obj: ../address.h
 CMakeFiles/MemoryManagement.dir/call.c.obj: ../bottom.h
 CMakeFiles/MemoryManagement.dir/call.c.obj: ../call.c
 CMakeFiles/MemoryManagement.dir/call.c.obj: ../call.h
+CMakeFiles/MemoryManagement.dir/call.c.obj: ../external_page_table.h
 CMakeFiles/MemoryManagement.dir/call.c.obj: ../page_bit_map.h
 CMakeFiles/MemoryManagement.dir/call.c.obj: ../page_table.h
 CMakeFiles/MemoryManagement.dir/call.c.obj: ../process.h
 CMakeFiles/MemoryManagement.dir/call.c.obj: ../struct.h
 CMakeFiles/MemoryManagement.dir/call.c.obj: ../swap.h
 CMakeFiles/MemoryManagement.dir/call.c.obj: ../type.h
+
+CMakeFiles/MemoryManagement.dir/external_page_table.c.obj: ../bottom.h
+CMakeFiles/MemoryManagement.dir/external_page_table.c.obj: ../external_page_table.c
+CMakeFiles/MemoryManagement.dir/external_page_table.c.obj: ../external_page_table.h
+CMakeFiles/MemoryManagement.dir/external_page_table.c.obj: ../struct.h
+CMakeFiles/MemoryManagement.dir/external_page_table.c.obj: ../type.h
 
 CMakeFiles/MemoryManagement.dir/main.c.obj: ../address.h
 CMakeFiles/MemoryManagement.dir/main.c.obj: ../bottom.h
@@ -42,6 +49,7 @@ CMakeFiles/MemoryManagement.dir/page_bit_map.c.obj: ../type.h
 CMakeFiles/MemoryManagement.dir/page_table.c.obj: ../address.h
 CMakeFiles/MemoryManagement.dir/page_table.c.obj: ../bottom.h
 CMakeFiles/MemoryManagement.dir/page_table.c.obj: ../call.h
+CMakeFiles/MemoryManagement.dir/page_table.c.obj: ../external_page_table.h
 CMakeFiles/MemoryManagement.dir/page_table.c.obj: ../page_bit_map.h
 CMakeFiles/MemoryManagement.dir/page_table.c.obj: ../page_table.c
 CMakeFiles/MemoryManagement.dir/page_table.c.obj: ../page_table.h
@@ -58,7 +66,11 @@ CMakeFiles/MemoryManagement.dir/process.c.obj: ../struct.h
 CMakeFiles/MemoryManagement.dir/process.c.obj: ../swap.h
 CMakeFiles/MemoryManagement.dir/process.c.obj: ../type.h
 
+CMakeFiles/MemoryManagement.dir/swap.c.obj: ../address.h
 CMakeFiles/MemoryManagement.dir/swap.c.obj: ../bottom.h
+CMakeFiles/MemoryManagement.dir/swap.c.obj: ../external_page_table.h
+CMakeFiles/MemoryManagement.dir/swap.c.obj: ../page_bit_map.h
+CMakeFiles/MemoryManagement.dir/swap.c.obj: ../page_table.h
 CMakeFiles/MemoryManagement.dir/swap.c.obj: ../struct.h
 CMakeFiles/MemoryManagement.dir/swap.c.obj: ../swap.c
 CMakeFiles/MemoryManagement.dir/swap.c.obj: ../swap.h

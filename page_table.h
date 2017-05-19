@@ -8,6 +8,7 @@
 #include "struct.h"
 #include "stdbool.h"
 
+
 struct PageTable loadPageTable();
 void flushPageTable(struct PageTable table);
 void initPageTable();
@@ -24,18 +25,26 @@ struct PageItem loadPage(unsigned pageNum);
 void flushPage(struct PageItem page);
 
 /**
- * 给出页号和页内偏移，读取一个字节
+ * 从指定物理地址读取一个字节
  * @param pageNum 
  * @param offset 
+ * @param pid 
  * @return 
  */
-data_unit readPage(unsigned pageNum,unsigned offset);
+data_unit readPage(unsigned pageNum, unsigned offset,m_pid_t pid);
 
-int writePage(data_unit data,unsigned pageNum,unsigned offset);
+int writePage(data_unit data,unsigned pageNum,unsigned offset,m_pid_t pid);
 bool isAccessFail(struct PCB pcb, v_address address);
 
 
+int clockPaging(m_pid_t pid);
 
-int clockPaging();
+bool isPageUsed(u2 sign);
+
+bool isPageInMainMemory(u2 sign);
+bool isPageReferred(u2 sign);
+
+bool isPageModified(u2 sign);
+
 
 #endif //MEMORYMANAGEMENT_PAGE_TABLE_H

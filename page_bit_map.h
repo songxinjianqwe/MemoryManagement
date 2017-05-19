@@ -31,7 +31,7 @@ bool isAllocatable();
  * 分配一个页框，修改位示图和空闲块数，返回页框号
  * @return 
  */
-int allocateOnePage();
-void freeOnePage(unsigned pageFrameNum);
+int allocatePhysicalPage();
+void freePhysicalPage(unsigned pageFrameNum);
 
 #endif //MEMORYMANAGEMENT_PAGE_BIT_MAP_H

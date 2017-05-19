@@ -17,6 +17,7 @@ CMakeFiles/MemoryManagement.dir/call.c.obj: ../page_bit_map.h
 CMakeFiles/MemoryManagement.dir/call.c.obj: ../page_table.h
 CMakeFiles/MemoryManagement.dir/call.c.obj: ../process.h
 CMakeFiles/MemoryManagement.dir/call.c.obj: ../struct.h
+CMakeFiles/MemoryManagement.dir/call.c.obj: ../swap.h
 CMakeFiles/MemoryManagement.dir/call.c.obj: ../type.h
 
 CMakeFiles/MemoryManagement.dir/main.c.obj: ../address.h
@@ -46,6 +47,7 @@ CMakeFiles/MemoryManagement.dir/page_table.c.obj: ../page_table.c
 CMakeFiles/MemoryManagement.dir/page_table.c.obj: ../page_table.h
 CMakeFiles/MemoryManagement.dir/page_table.c.obj: ../process.h
 CMakeFiles/MemoryManagement.dir/page_table.c.obj: ../struct.h
+CMakeFiles/MemoryManagement.dir/page_table.c.obj: ../swap.h
 CMakeFiles/MemoryManagement.dir/page_table.c.obj: ../type.h
 
 CMakeFiles/MemoryManagement.dir/process.c.obj: ../bottom.h
@@ -53,7 +55,14 @@ CMakeFiles/MemoryManagement.dir/process.c.obj: ../page_table.h
 CMakeFiles/MemoryManagement.dir/process.c.obj: ../process.c
 CMakeFiles/MemoryManagement.dir/process.c.obj: ../process.h
 CMakeFiles/MemoryManagement.dir/process.c.obj: ../struct.h
+CMakeFiles/MemoryManagement.dir/process.c.obj: ../swap.h
 CMakeFiles/MemoryManagement.dir/process.c.obj: ../type.h
+
+CMakeFiles/MemoryManagement.dir/swap.c.obj: ../bottom.h
+CMakeFiles/MemoryManagement.dir/swap.c.obj: ../struct.h
+CMakeFiles/MemoryManagement.dir/swap.c.obj: ../swap.c
+CMakeFiles/MemoryManagement.dir/swap.c.obj: ../swap.h
+CMakeFiles/MemoryManagement.dir/swap.c.obj: ../type.h
 
 CMakeFiles/MemoryManagement.dir/test.c.obj: ../bottom.h
 CMakeFiles/MemoryManagement.dir/test.c.obj: ../call.h

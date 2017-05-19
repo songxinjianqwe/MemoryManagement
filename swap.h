@@ -4,11 +4,23 @@
 
 #ifndef MEMORYMANAGEMENT_SWAP_H
 #define MEMORYMANAGEMENT_SWAP_H
+
 #include "struct.h"
 
-struct PageItem  pageFaultInterrupt(struct PageItem page);
+unsigned pageFaultInterrupt(unsigned diskAddress, m_pid_t pid);
+
+int allocateVirtualPage();
+
+void swapOut(unsigned diskAddress, unsigned pageFrameNum);
+void swapIn(unsigned diskAddress, unsigned pageFrameNum);
+
+void freeVirtualPage(unsigned pageNum);
+
 void initSwap();
-int allocateOneDiskPage(unsigned pageNum);
-void freeSwap();
+
+struct SwapBitMap loadSwapBitMap();
+
+void flushSwapBitMap(struct SwapBitMap bitMap);
+
 
 #endif //MEMORYMANAGEMENT_SWAP_H

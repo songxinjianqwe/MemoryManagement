@@ -45,7 +45,7 @@ bool isAllocatable() {
     return freePageFrameSize >= 1;
 }
 
-int allocateOnePage() {
+int allocatePhysicalPage() {
     struct PageBitMap bitMap = loadPageBitMap();
     bitMap.freePageFrameSize--;
     u1 bit;
@@ -69,7 +69,7 @@ int allocateOnePage() {
     return OUT_OF_MEMORY;
 }
 
-void freeOnePage(unsigned pageFrameNum) {
+void freePhysicalPage(unsigned pageFrameNum) {
     struct PageBitMap bitMap = loadPageBitMap();
     bitMap.freePageFrameSize++;
     //pageFrameNum是页框号，页框号除8得到所在的字节，然后余数就是第i位
@@ -78,6 +78,6 @@ void freeOnePage(unsigned pageFrameNum) {
     //1<<6 = 0100 0000
     //~(1<<6) = 1011 1111 
     //与~(1<<6)做与运算即可将第6位置0
-    bitMap.bits[pageFrameNum / 8] &= ~(1 << (7 - (pageFrameNum % 8)));
+    clrbit(bitMap.bits[pageFrameNum / 8], (7 - (pageFrameNum % 8)));
     flushPageBitMap(bitMap);
 }

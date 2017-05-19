@@ -43,6 +43,8 @@ page_bit_map.h
 D:/CPP/MemoryManagement/page_bit_map.h
 address.h
 D:/CPP/MemoryManagement/address.h
+swap.h
+D:/CPP/MemoryManagement/swap.h
 stdio.h
 -
 
@@ -115,6 +117,8 @@ address.h
 D:/CPP/MemoryManagement/address.h
 stdbool.h
 D:/CPP/MemoryManagement/stdbool.h
+swap.h
+D:/CPP/MemoryManagement/swap.h
 
 D:/CPP/MemoryManagement/page_table.h
 type.h
@@ -125,12 +129,14 @@ stdbool.h
 D:/CPP/MemoryManagement/stdbool.h
 
 D:/CPP/MemoryManagement/process.c
-process.h
-D:/CPP/MemoryManagement/process.h
 stdio.h
 -
+process.h
+D:/CPP/MemoryManagement/process.h
 page_table.h
 D:/CPP/MemoryManagement/page_table.h
+swap.h
+D:/CPP/MemoryManagement/swap.h
 
 D:/CPP/MemoryManagement/process.h
 struct.h
@@ -139,6 +145,14 @@ D:/CPP/MemoryManagement/struct.h
 D:/CPP/MemoryManagement/struct.h
 bottom.h
 D:/CPP/MemoryManagement/bottom.h
+
+D:/CPP/MemoryManagement/swap.c
+swap.h
+D:/CPP/MemoryManagement/swap.h
+
+D:/CPP/MemoryManagement/swap.h
+struct.h
+D:/CPP/MemoryManagement/struct.h
 
 D:/CPP/MemoryManagement/test.c
 call.h

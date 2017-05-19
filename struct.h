@@ -6,6 +6,11 @@
 #define MEMORYMANAGEMENT_STRUCT_H
 
 #include "bottom.h"
+//***************************位运算宏***************************************************************************//
+
+#define setbit(x,y) x|=(1<<y) //将X的第Y位置1
+#define clrbit(x,y) x&=~(1<<y) //将X的第Y位清0
+
 
 //*****************************常量定义****************************************************************************//
 
@@ -15,11 +20,11 @@
 
 #define PAGE_BIT_MAP_SIZE (TOTAL_PAGE_FRAME_NUM/8)    //页框的位示图占2^12个字节 4096
 
-#define PAGE_BIT_STRUCT_SIZE  (PAGE_BIT_MAP_SIZE+2) //位示图结构体的大小为 4096+2个字节
+#define PAGE_BIT_STRUCT_SIZE  (sizeof(struct PageBitMap )) //位示图结构体的大小为 4096+2个字节
 
 #define PAGE_TABLE_ITEM_SIZE (sizeof(struct PageItem)) //页表项的长度为8字节  8
 
-#define TOTAL_PAGE_NUM  (DISK_SIZE/PAGE_FRAME_SIZE) //页表项数适应虚拟内存的大小 131072
+#define TOTAL_PAGE_NUM  (DISK_SIZE/PAGE_FRAME_SIZE) //可供分配的页数，页表项数适应虚拟内存的大小 131072
 
 #define PAGE_TABLE_SIZE (TOTAL_PAGE_NUM*PAGE_TABLE_ITEM_SIZE) //页表的大小为2^17字节 1048576
 
@@ -29,15 +34,15 @@
 
 #define PCB_TABLE_SIZE (PROCESS_NUM*PCB_SIZE) //进程表的大小为12288字节 
 
-#define PAGE_FRAME_BEGIN_POS  (PAGE_BIT_STRUCT_SIZE+PAGE_TABLE_SIZE+PCB_TABLE_SIZE) //页框的开始地址 1064962
+//假设整个磁盘都是交换区，对交换区进行管理
+#define SWAP_BIT_MAP_SIZE (TOTAL_PAGE_NUM/8)  //交换区的位示图共16384个字节
 
-#define DISK_SWAP_SPACE_BEGIN_POS 0 //磁盘中交换区的开始位置
+#define SWAP_BIT_STRUCT_SIZE (sizeof(struct SwapBitMap)) //交换区位示图结构体的大小为16388个字节
 
-
+#define PAGE_FRAME_BEGIN_POS  (PAGE_BIT_STRUCT_SIZE+PAGE_TABLE_SIZE+SWAP_BIT_STRUCT_SIZE+PCB_TABLE_SIZE) //页框的开始地址 1081350
 
 
 //*************************错误状态码*********************************************************************//
-
 #define  OUT_OF_MEMORY -10 //内存不足
 
 #define  PID_DUPLICATED -20  //PID已被占用
@@ -50,6 +55,11 @@
 
 #define  ACCESS_FAIL -1 //地址越界
 
+//***********************位位置常量***********************************************************//
+#define  PAGE_USED_INDEX 0
+#define  PAGE_IN_MEMORY_INDEX 1
+#define  PAGE_REFERRED_INDEX 2
+#define  PAGE_MODIFIED_INDEX 3
 
 //**************************类型重命名*****************************************************************//
 
@@ -98,7 +108,7 @@ struct PageItem {
      * 次次次低位：修改标识
      */
     u2 sign;
-    u4 diskAddr;
+    u4 diskAddress;
 };
 
 /**
@@ -108,5 +118,10 @@ struct PageTable {
     struct PageItem pageItems[TOTAL_PAGE_NUM];
 };
 
+
+struct SwapBitMap {
+    u4 freeSwapPageSize;
+    u1 bits[SWAP_BIT_MAP_SIZE];
+};
 
 #endif //MEMORYMANAGEMENT_STRUCT_H

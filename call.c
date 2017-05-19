@@ -30,8 +30,9 @@ void printInitParams() {
     printf("PROCESS_NUM:%d\n", PROCESS_NUM);
     printf("PCB_SIZE:%d\n", PCB_SIZE);
     printf("PCB_TABLE_SIZE:%d\n", PCB_TABLE_SIZE);
+    printf("SWAP_BIT_MAP_SIZE:%d\n", SWAP_BIT_MAP_SIZE);
+    printf("SWAP_BIT_STRUCT_SIZE:%d\n", SWAP_BIT_STRUCT_SIZE);
     printf("PAGE_FRAME_BEGIN_POS:%d\n", PAGE_FRAME_BEGIN_POS);
-    printf("DISK_SWAP_SPACE_BEGIN_POS:%d\n", DISK_SWAP_SPACE_BEGIN_POS);
 }
 
 int main(){
@@ -55,7 +56,7 @@ int read(data_unit *data, v_address address, m_pid_t pid) {
     if (isAccessFail(pcb, address)) {
         return ACCESS_FAIL;
     }
-    *data = readPage(pcb.pageTableStart + pageNum, offset);
+    *data = readPage(pcb.pageTableStart + pageNum, offset,pid);
     return SUCCESS;
 }
 
@@ -69,10 +70,9 @@ int write(data_unit data, v_address address, m_pid_t pid) {
     if (isAccessFail(pcb, address)) {
         return ACCESS_FAIL;
     }
-    writePage(data, pcb.pageTableStart + pageNum, offset);
+    writePage(data, pcb.pageTableStart + pageNum, offset,pid);
     return SUCCESS;
 }
-
 
 int allocate(v_address *address, m_size_t size, m_pid_t pid) {
     if (!isAllocatable()) {

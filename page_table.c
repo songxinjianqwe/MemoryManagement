@@ -45,7 +45,7 @@ void initPageTable() {
     for (unsigned i = 0; i < TOTAL_PAGE_NUM; ++i) {
         pageTable.pageItems[i].pageFrameNum = 0;
         pageTable.pageItems[i].sign = 0;
-        pageTable.pageItems[i].diskAddr = 0;
+        pageTable.pageItems[i].diskAddress = 0;
     }
     flushPageTable(pageTable);
 }
@@ -59,7 +59,7 @@ int allocatePageFrames(unsigned pageSize) {
     for (pageStart = 0; pageStart < TOTAL_PAGE_NUM - pageSize; ++pageStart) {
         isFree = true;
         for (unsigned j = 0; j < pageSize; ++j) {
-            if (pageTable.pageItems[pageStart + j].sign != 0) {
+            if (isPageUsed(pageTable.pageItems[pageStart + j].sign)) {
                 isFree = false;
                 break;
             }
@@ -74,31 +74,28 @@ int allocatePageFrames(unsigned pageSize) {
     int pageFrameResult;
     //修改页表项
     for (unsigned i = 0; i < pageSize; ++i) {
-        pageFrameResult = allocateOnePage();
+        pageFrameResult = allocatePhysicalPage();
         if (pageFrameResult < 0) {
             return pageFrameResult;
         } else {
             if (i == 0) {
                 pageTable.pageItems[pageStart + i].pageFrameNum = pageFrameResult;
-                pageTable.pageItems[pageStart + i].diskAddr = 0;
+                pageTable.pageItems[pageStart + i].diskAddress = 0;
                 //置主存驻留标识为1
-                pageTable.pageItems[pageStart + i].sign = pageTable.pageItems[pageStart + i].sign | 2;
+                setbit(pageTable.pageItems[pageStart + i].sign, PAGE_IN_MEMORY_INDEX);
             } else {
                 pageTable.pageItems[pageStart + i].pageFrameNum = 0;
                 //从磁盘中找一页空闲的区域
-                unsigned diskPage = allocateOneDiskPage(pageStart + i);
-                pageTable.pageItems[pageStart + i].diskAddr = diskPage;
-                pageTable.pageItems[pageStart + i].sign &= ~(2);
-
+                int diskPageResult = allocateVirtualPage();
+                if (diskPageResult < 0) {
+                    return diskPageResult;
+                }
+                pageTable.pageItems[pageStart + i].diskAddress = diskPageResult;
                 //置主存驻留标识为0
-                //2:0000 0010
-                //~2: 1111 1101
-                //xxxx xxxx & 1111 1101 =  xxxx xx0x
-                pageTable.pageItems[pageStart + i].sign &= ~(2);
-
+                clrbit(pageTable.pageItems[pageStart + i].sign, PAGE_IN_MEMORY_INDEX);
             }
-            //最后一位是占用位，置1
-            pageTable.pageItems[pageStart + i].sign = pageTable.pageItems[pageStart + i].sign | 1;
+            //占用位置1
+            setbit(pageTable.pageItems[pageStart + i].sign, PAGE_USED_INDEX);
         }
     }
     flushPageTable(pageTable);
@@ -122,32 +119,31 @@ void flushPage(struct PageItem page) {
 }
 
 //由页号查页表
-data_unit readPage(unsigned pageNum, unsigned offset) {
+data_unit readPage(unsigned pageNum, unsigned offset, m_pid_t pid) {
     struct PageItem page = loadPage(pageNum);
-    //xxxx xxxx & 0000 0010 = 0000 00x0
     //如果主存驻留标识为0
-    if (!page.sign & 2) {
+    if (!isPageInMainMemory(page.sign)) {
         //发出缺页中断
-        page = pageFaultInterrupt(page);
+        page.pageFrameNum = pageFaultInterrupt(page.diskAddress,pid);
         //将页表项的主存驻留标识置1
-        page.sign = page.sign | 0x2;
+        setbit(page.sign, PAGE_IN_MEMORY_INDEX);
     }
     //将页表项的引用位置1
-    page.sign = page.sign | 0x4;
+    setbit(page.sign, PAGE_REFERRED_INDEX);
     flushPage(page);
     return mem_read(PAGE_FRAME_BEGIN_POS + combinePhyAddr(page.pageFrameNum, offset));
 }
 
-int writePage(data_unit data, unsigned pageNum, unsigned offset) {
+int writePage(data_unit data, unsigned pageNum, unsigned offset, m_pid_t pid) {
     struct PageItem page = loadPage(pageNum);
-    if (!page.sign & 2) {
+    if (!isPageInMainMemory(page.sign)) {
         //发出缺页中断
-        page = pageFaultInterrupt(page);
+        page.pageFrameNum = pageFaultInterrupt(page.diskAddress,pid);
     }
     //将页表项的引用位置1
-    page.sign = page.sign | 0x4;
+    setbit(page.sign, PAGE_REFERRED_INDEX);
     //将页表项的修改位置1
-    page.sign = page.sign | 0x8;
+    setbit(page.sign, PAGE_MODIFIED_INDEX);
     flushPage(page);
     mem_write(data, PAGE_FRAME_BEGIN_POS + combinePhyAddr(page.pageFrameNum, offset));
     return SUCCESS;
@@ -157,12 +153,14 @@ void freePageFrames(unsigned pageTableStart, unsigned pageSize) {
     struct PageTable pageTable = loadPageTable();
     for (unsigned i = 0; i < pageSize; ++i) {
         //如果主存驻留标识为1，那么就释放该页框
-        if(pageTable.pageItems[pageTableStart + i].sign & 2){
-            freeOnePage(pageTable.pageItems[pageTableStart + i].pageFrameNum);
+        if (isPageInMainMemory(pageTable.pageItems[pageTableStart + i].sign)) {
+            freePhysicalPage(pageTable.pageItems[pageTableStart + i].pageFrameNum);
         }
+        //释放对应的磁盘空间
+        freeVirtualPage(pageTable.pageItems[pageTableStart + i].diskAddress);
         pageTable.pageItems[pageTableStart + i].pageFrameNum = 0;
         pageTable.pageItems[pageTableStart + i].sign = 0;
-        pageTable.pageItems[pageTableStart + i].diskAddr = 0;
+        pageTable.pageItems[pageTableStart + i].diskAddress = 0;
     }
     flushPageTable(pageTable);
 }
@@ -187,4 +185,25 @@ bool isAccessFail(struct PCB pcb, v_address address) {
         }
     }
     return false;
+}
+
+
+int clockPaging(m_pid_t pid) {
+
+}
+
+bool isPageUsed(u2 sign) {
+    return sign & 1;
+}
+
+bool isPageInMainMemory(u2 sign) {
+    return sign & 2;
+}
+
+bool isPageReferred(u2 sign) {
+    return sign & 4;
+}
+
+bool isPageModified(u2 sign) {
+    return sign & 8;
 }

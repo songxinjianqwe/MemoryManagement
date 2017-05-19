@@ -83,6 +83,8 @@ int allocatePageFrames(unsigned pageSize) {
                 pageTable.pageItems[pageStart + i].pageFrameNum = pageFrameResult;
                 //置主存驻留标识为1
                 setbit(pageTable.pageItems[pageStart + i].sign, PAGE_IN_MEMORY_INDEX);
+                //第一次装入时引用位置1
+                setbit(pageTable.pageItems[pageStart + i].sign, PAGE_REFERRED_INDEX);
             }
         } else {
             //其他页不分配页框
@@ -195,19 +197,15 @@ bool isAccessFail(struct PCB pcb, v_address address) {
     return false;
 }
 
-//时钟分页调度算法
+//改进后的时钟分页调度算法
 //先实现一个简单的
 unsigned clockPaging(m_pid_t pid) {
     struct PCB pcb = loadPCB(pid);
     unsigned pageTableStart = pcb.pageTableStart;
     struct PageTable pageTable = loadPageTable();
     for (unsigned i = 0; i < pcb.pageSize; ++i) {
-        //如果引用位为0
-        if (!isPageReferred(pageTable.pageItems[pageTableStart + i].sign)) {
-            return pageTableStart + i;
-        }
+
     }
-    return pageTableStart;
 }
 
 

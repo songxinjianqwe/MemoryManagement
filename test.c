@@ -296,19 +296,19 @@ int test8()
 
     Success("test8: pass");
 }
-//
-///**
-// * 4 7 8 过不了，主要是因为内存分配不足
-// * @return 
-// */
-//int main(){
+
+/**
+ * 4 7 8 过不了，主要是因为内存分配不足
+ * @return 
+ */
+int main(){
 //    test1();
 //    test2();
 //    test3();
 //    test5();
 //    test6();
-////    test4();
-////    test7();
-////    test8();
-//    return 0;
-//}
+//    test4();
+//    test7();
+    test8();
+    return 0;
+}

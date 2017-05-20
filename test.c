@@ -169,7 +169,7 @@ int test5()
 
 }
 
-// basic allocation/free_memory
+// basic allocation/free
 int test6()
 {
     init();
@@ -192,9 +192,9 @@ int test6()
     // pid: 1 - 80
     for (m_size_t j = 0; j < 80; ++j)
     {
-        if (free_memory(vs[j], j + 1) != 0)
+        if (free_memory(vs[j], j+1) != 0)
         {
-            Fail("test6: fail, free_memory");
+            Fail("test6: fail, free");
         }
     }
 
@@ -244,9 +244,9 @@ int test7()
     // pid : 1, 3, ..., 89
     for (m_size_t j = 0; j < 45; ++j)
     {
-        if (free_memory(vs[j * 2], j * 2 + 1) != 0)
+        if (free_memory(vs[j * 2], j*2+1) != 0)
         {
-            Fail("test7: fail, free_memory");
+            Fail("test7: fail, free");
         }
     }
 
@@ -297,18 +297,13 @@ int test8()
     Success("test8: pass");
 }
 
-/**
- * 4 7 8 过不了，主要是因为内存分配不足
- * @return 
- */
 int main(){
-//    test1();
-//    test2();
-//    test3();
-//    test5();
-//    test6();
-//    test4();
-//    test7();
-    test8();
+    test1();
+    test2();
+    test3();
+    test4();
+    test5();
+    test6();
+    test7();
     return 0;
 }

@@ -10,6 +10,5 @@ void initExternalPageTable();
 struct ExternalPageTable loadExternalPageTable();
 void flushExternalPageTable(struct ExternalPageTable table);
 struct ExternalPageItem loadExternalPage(unsigned pageNum);
-void flushExternalPage(unsigned pageNum,struct ExternalPageItem page);
 
 #endif //MEMORYMANAGEMENT_EXTERNAL_PAGE_TABLE_H

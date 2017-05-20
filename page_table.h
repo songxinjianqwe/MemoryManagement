@@ -35,8 +35,12 @@ data_unit readPage(unsigned pageNum, unsigned offset,m_pid_t pid);
 
 int writePage(data_unit data,unsigned pageNum,unsigned offset,m_pid_t pid);
 bool isAccessFail(struct PCB pcb, v_address address);
-
-
+/**
+ * 改进的时钟页面替换算法
+ * 同时考虑引用位和修改位
+ * @param pid 
+ * @return 
+ */
 unsigned clockPaging(m_pid_t pid);
 
 bool isPageUsed(u2 sign);

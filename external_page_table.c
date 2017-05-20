@@ -45,10 +45,3 @@ struct ExternalPageItem loadExternalPage(unsigned pageNum) {
     }
     return page;
 }
-
-void flushExternalPage(unsigned pageNum,struct ExternalPageItem page) {
-    data_unit *ptr = (data_unit *) &page;
-    for (unsigned i = 0; i < EXTERNAL_PAGE_TABLE_ITEM_SIZE; ++i) {
-        mem_write(*(ptr + i), PAGE_BIT_STRUCT_SIZE + PAGE_TABLE_SIZE + pageNum * EXTERNAL_PAGE_TABLE_ITEM_SIZE + i);
-    }
-}

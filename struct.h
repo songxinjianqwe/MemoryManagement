@@ -40,16 +40,16 @@
 
 #define PROCESS_NUM 1024 //进程总数为1024个 1024
 
-#define PCB_SIZE (sizeof(struct PCB)) //进程控制块的大小为12个字节 12
+#define PCB_SIZE (sizeof(struct PCB)) //进程控制块的大小为16个字节 16 
 
-#define PCB_TABLE_SIZE (PROCESS_NUM*PCB_SIZE) //进程表的大小为12288字节 
+#define PCB_TABLE_SIZE (PROCESS_NUM*PCB_SIZE) //进程表的大小为16384字节 
 
 //假设整个磁盘都是交换区，对交换区进行管理
 #define SWAP_BIT_MAP_SIZE (TOTAL_PAGE_NUM/8)  //交换区的位示图共16384个字节
 
 #define SWAP_BIT_STRUCT_SIZE (sizeof(struct SwapBitMap)) //交换区位示图结构体的大小为16388个字节
 
-#define PAGE_FRAME_BEGIN_POS  (PAGE_BIT_STRUCT_SIZE+PAGE_TABLE_SIZE+EXTERNAL_PAGE_TABLE_SIZE+SWAP_BIT_STRUCT_SIZE+PCB_TABLE_SIZE) //页框的开始地址 1081350
+#define PAGE_FRAME_BEGIN_POS  (PAGE_BIT_STRUCT_SIZE+PAGE_TABLE_SIZE+EXTERNAL_PAGE_TABLE_SIZE+SWAP_BIT_STRUCT_SIZE+PCB_TABLE_SIZE) //页框的开始地址 1085446
 
 
 //*************************错误状态码*********************************************************************//
@@ -88,6 +88,7 @@ struct PCB {
     u2 lastPageLimit;
     u4 pageSize;
     u4 pageTableStart;
+    u4 pageTablePtr;
 };
 
 /**

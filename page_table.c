@@ -197,15 +197,55 @@ bool isAccessFail(struct PCB pcb, v_address address) {
     return false;
 }
 
+//unsigned clockPaging(m_pid_t pid) {
+//    struct PCB pcb = loadPCB(pid);
+//    unsigned pageTableStart = pcb.pageTableStart;
+//    struct PageTable pageTable = loadPageTable();
+//    for (unsigned i = 0; i < pcb.pageSize; ++i) {
+//        //如果引用位为0
+//        if (!isPageReferred(pageTable.pageItems[pageTableStart + i].sign)) {
+//            return pageTableStart + i;
+//        }
+//    }
+//    return pageTableStart;
+//}
+//
 //改进后的时钟分页调度算法
-//先实现一个简单的
 unsigned clockPaging(m_pid_t pid) {
     struct PCB pcb = loadPCB(pid);
-    unsigned pageTableStart = pcb.pageTableStart;
+    unsigned ptr = pcb.pageTablePtr;
+    unsigned end = pcb.pageTableStart + pcb.pageTablePtr;
     struct PageTable pageTable = loadPageTable();
-    for (unsigned i = 0; i < pcb.pageSize; ++i) {
+    //如果从指针开始位置，存在既没有被引用，也没有被修改的页，那么它将被换出
+    while (true) {
+        for (; ptr < end; ++ptr) {
+            if (!isPageReferred(pageTable.pageItems[ptr].sign)
+                && !isPageModified(pageTable.pageItems[ptr].sign)) {
+                //找到被淘汰的页时，指针需要推进一步
+                pcb.pageTablePtr = ptr + 1;
+                flushPCB(pcb);
+                return ptr;
+            }
+        }
 
+        //如果不存在，那么指针仍指向原来位置
+        ptr = pcb.pageTablePtr;
+        //查找存在没有被引用，但被修改过的页
+        for (; ptr < end; ++ptr) {
+            if (!isPageReferred(pageTable.pageItems[ptr].sign)
+                && isPageModified(pageTable.pageItems[ptr].sign)) {
+                pcb.pageTablePtr = ptr + 1;
+                flushPCB(pcb);
+                return ptr;
+            } else {
+                //将途经的页面的引用位置0
+                clrbit(pageTable.pageItems[ptr].sign, PAGE_REFERRED_INDEX);
+            }
+        }
+        //如果仍不存在，那么指针仍指向原来位置
+        ptr = pcb.pageTablePtr;
     }
+
 }
 
 

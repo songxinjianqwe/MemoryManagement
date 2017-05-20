@@ -12,5 +12,5 @@ unsigned parseToOffset(v_address address){
 }
 
 p_address combinePhyAddr(unsigned pageNum, unsigned offset){
-    return pageNum & 0xFFFFF0000 + offset;    
+    return (pageNum << 12) + offset;    
 }

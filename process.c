@@ -60,6 +60,7 @@ void initPCBTable() {
         table.pcbs[i].pageTableStart = 0;
         table.pcbs[i].pageSize = 0;
         table.pcbs[i].lastPageLimit = 0;
+        table.pcbs[i].pageTablePtr = 0;
     }
     flushPCBTable(table);
 }
@@ -75,8 +76,6 @@ int createProcess(m_pid_t pid, m_size_t size) {
     } else {
         occupiedPageSize = size / PAGE_FRAME_SIZE + 1;
     }
-//    printf("%d %% PAGE_FRAME_SIZE %d\n", size, size % PAGE_FRAME_SIZE);
-//    printf("occupiedPageSize:%d\n", occupiedPageSize);
 
     //分配页框
     int result = allocatePageFrames(occupiedPageSize);
@@ -88,6 +87,7 @@ int createProcess(m_pid_t pid, m_size_t size) {
         pcb.pageSize = occupiedPageSize;
         pcb.pageTableStart = result;
         pcb.lastPageLimit = size % PAGE_FRAME_SIZE;
+        pcb.pageTablePtr = pcb.pageTableStart;
         flushPCB(pcb);
         return SUCCESS;
     }

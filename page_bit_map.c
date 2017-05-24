@@ -36,13 +36,22 @@ void initPageBitMap() {
     flushPageBitMap(bitMap);
 }
 
-bool isAllocatable() {
+bool hasFreePageFrames() {
     u2 freePageFrameSize;
     data_unit *ptr = (data_unit *) &freePageFrameSize;
     for (unsigned i = 0; i < 2; ++i) {
         *(ptr + i) = mem_read(i);
     }
     return freePageFrameSize >= 1;
+}
+
+bool isAllocatable(unsigned pageSize){
+    u2 freePageFrameSize;
+    data_unit *ptr = (data_unit *) &freePageFrameSize;
+    for (unsigned i = 0; i < 2; ++i) {
+        *(ptr + i) = mem_read(i);
+    }
+    return freePageFrameSize >= pageSize;
 }
 
 int allocatePhysicalPage() {

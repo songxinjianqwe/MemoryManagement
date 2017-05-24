@@ -69,9 +69,54 @@ int allocatePageFrames(unsigned pageSize) {
     if (!isFree) {
         return CONTINUED_PAGE_FRAME_NOT_FOUND;
     }
+//    return allocateWithSwap(pageSize, pageTable, pageStart);
+
+    //如果物理页框足够，那么直接分配物理页框
+    if (isAllocatable(pageSize)/* && pageSize <= AVERAGE_PAGE_NUM_PER_PROCESS*/) {
+        return allocateAllInMemory(pageSize, pageTable, pageStart);
+    } else {
+        //否则采用请求式分页存储
+        return allocateWithSwap(pageSize, pageTable, pageStart);
+    }
+}
+
+/**
+ * 直接分配页框
+ * @param pageSize 
+ * @param pageTable 
+ * @param pageStart 
+ * @return 
+ */
+int allocateAllInMemory(unsigned pageSize, struct PageTable pageTable, unsigned pageStart) {
+    int pageFrameResult = 0;
+    //修改页表项
+    for (unsigned i = 0; i < pageSize; ++i) {
+        pageFrameResult = allocatePhysicalPage();
+        if (pageFrameResult < 0) {
+            return pageFrameResult;
+        } else {
+            pageTable.pageItems[pageStart + i].pageFrameNum = pageFrameResult;
+            //置主存驻留标识为1
+            setbit(pageTable.pageItems[pageStart + i].sign, PAGE_IN_MEMORY_INDEX);
+            //最后一位是占用位，置1
+            setbit(pageTable.pageItems[pageStart + i].sign, PAGE_USED_INDEX);
+        }
+    }
+    flushPageTable(pageTable);
+    return pageFrameResult;
+}
+
+/**
+ * 只为第一页分配页框
+ * @param pageSize 
+ * @param pageTable 
+ * @param pageStart 
+ * @return 
+ */
+int allocateWithSwap(unsigned pageSize, struct PageTable pageTable, unsigned pageStart) {
+    int pageFrameResult;
     //读入外页表
     struct ExternalPageTable externalPageTable = loadExternalPageTable();
-    int pageFrameResult;
     //修改页表项
     for (unsigned i = 0; i < pageSize; ++i) {
         //只为第一页分配页框
@@ -106,7 +151,6 @@ int allocatePageFrames(unsigned pageSize) {
     flushExternalPageTable(externalPageTable);
     return pageStart;
 }
-
 
 struct PageItem loadPage(unsigned pageNum) {
     struct PageItem page;
@@ -216,11 +260,13 @@ unsigned clockPaging(m_pid_t pid) {
     unsigned ptr = pcb.pageTablePtr;
     unsigned end = pcb.pageTableStart + pcb.pageTablePtr;
     struct PageTable pageTable = loadPageTable();
+    unsigned sign;
     //如果从指针开始位置，存在既没有被引用，也没有被修改的页，那么它将被换出
     while (true) {
         for (; ptr < end; ++ptr) {
-            if (!isPageReferred(pageTable.pageItems[ptr].sign)
-                && !isPageModified(pageTable.pageItems[ptr].sign)) {
+            sign = pageTable.pageItems[ptr].sign;
+            if (isPageInMainMemory(sign) && !isPageReferred(sign)
+                && !isPageModified(sign)) {
                 //找到被淘汰的页时，指针需要推进一步
                 pcb.pageTablePtr = ptr + 1;
                 flushPCB(pcb);
@@ -230,10 +276,12 @@ unsigned clockPaging(m_pid_t pid) {
 
         //如果不存在，那么指针仍指向原来位置
         ptr = pcb.pageTablePtr;
+        
         //查找存在没有被引用，但被修改过的页
         for (; ptr < end; ++ptr) {
-            if (!isPageReferred(pageTable.pageItems[ptr].sign)
-                && isPageModified(pageTable.pageItems[ptr].sign)) {
+            sign = pageTable.pageItems[ptr].sign;
+            if (isPageInMainMemory(sign) && !isPageReferred(sign)
+                && isPageModified(sign)) {
                 pcb.pageTablePtr = ptr + 1;
                 flushPCB(pcb);
                 return ptr;

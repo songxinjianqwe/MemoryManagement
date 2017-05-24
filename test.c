@@ -120,7 +120,6 @@ int test4()
 
     count_t mr, mw, dr, dw;
     evaluate(&mr, &mw, &dr, &dw);
-
     data_unit d = 'k';
     data_unit v;
     for (int i = 0; i < 23333; ++i)
@@ -169,7 +168,7 @@ int test5()
 
 }
 
-// basic allocation/free
+// basic allocation/free_memory
 int test6()
 {
     init();
@@ -192,9 +191,9 @@ int test6()
     // pid: 1 - 80
     for (m_size_t j = 0; j < 80; ++j)
     {
-        if (free_memory(vs[j], j+1) != 0)
+        if (free_memory(vs[j], j + 1) != 0)
         {
-            Fail("test6: fail, free");
+            Fail("test6: fail, free_memory");
         }
     }
 
@@ -244,9 +243,9 @@ int test7()
     // pid : 1, 3, ..., 89
     for (m_size_t j = 0; j < 45; ++j)
     {
-        if (free_memory(vs[j * 2], j*2+1) != 0)
+        if (free_memory(vs[j * 2], j * 2 + 1) != 0)
         {
-            Fail("test7: fail, free");
+            Fail("test7: fail, free_memory");
         }
     }
 

@@ -51,6 +51,9 @@
 
 #define PAGE_FRAME_BEGIN_POS  (PAGE_BIT_STRUCT_SIZE+PAGE_TABLE_SIZE+EXTERNAL_PAGE_TABLE_SIZE+SWAP_BIT_STRUCT_SIZE+PCB_TABLE_SIZE) //页框的开始地址 1085446
 
+#define AVAILABLE_PAGE_FRAME_NUM ((MEMORY_SIZE-PAGE_FRAME_BEGIN_POS)/PAGE_FRAME_SIZE) //32502
+
+#define AVERAGE_PAGE_NUM_PER_PROCESS (AVAILABLE_PAGE_FRAME_NUM/PROCESS_NUM) //31
 
 //*************************错误状态码*********************************************************************//
 #define  OUT_OF_MEMORY -10 //内存不足

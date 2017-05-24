@@ -34,6 +34,8 @@ void printInitParams() {
     printf("SWAP_BIT_MAP_SIZE:%d\n", SWAP_BIT_MAP_SIZE);
     printf("SWAP_BIT_STRUCT_SIZE:%d\n", SWAP_BIT_STRUCT_SIZE);
     printf("PAGE_FRAME_BEGIN_POS:%d\n", PAGE_FRAME_BEGIN_POS);
+    printf("AVAILABLE_PAGE_FRAME_NUM:%d\n",AVAILABLE_PAGE_FRAME_NUM);
+    printf("AVERAGE_PAGE_NUM_PER_PROCESS:%d\n",AVERAGE_PAGE_NUM_PER_PROCESS);
 }
 
 
@@ -74,7 +76,7 @@ int write(data_unit data, v_address address, m_pid_t pid) {
 }
 
 int allocate(v_address *address, m_size_t size, m_pid_t pid) {
-    if (!isAllocatable()) {
+    if (!hasFreePageFrames()) {
         //只要有一个空闲页框，就可以创建进程
         return OUT_OF_MEMORY;
     }

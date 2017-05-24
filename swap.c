@@ -24,7 +24,7 @@
 unsigned pageFaultInterrupt(unsigned diskPageNum, m_pid_t pid) {
     //如果有剩余的页框，那么分配一个
     int pageFrameNum;
-    if (isAllocatable()) {
+    if (hasFreePageFrames()) {
         pageFrameNum = allocatePhysicalPage();
         assert(pageFrameNum >= 0);
     } else {

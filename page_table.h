@@ -42,6 +42,23 @@ bool isAccessFail(struct PCB pcb, v_address address);
  * @return 
  */
 unsigned clockPaging(m_pid_t pid);
+/**
+ * 全部分配物理页框
+ * @param pageSize 
+ * @param pageTable 
+ * @param pageStart 
+ * @return 
+ */
+int allocateAllInMemory(unsigned pageSize, struct PageTable pageTable, unsigned pageStart);
+/**
+ * 仅为第一页分配物理页框
+ * @param pageSize 
+ * @param pageTable 
+ * @param pageStart 
+ * @return 
+ */
+int allocateWithSwap(unsigned pageSize, struct PageTable pageTable, unsigned pageStart);
+
 
 bool isPageUsed(u2 sign);
 
